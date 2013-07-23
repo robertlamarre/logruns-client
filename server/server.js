@@ -93,9 +93,18 @@ var updateUser = function (req, res) {
     res.send(user.allProperties(true));
   });
 }
+
+var handleOptions = function (req, res) {
+  console.log("options request");
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Content-Type, X-Requested-With");
+  res.header("Access-Control-Allow-Methods", "PUT, POST, DELETE, GET");
+  res.send(200);
+
+}
 app.all('*', function(req, res, next){
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header("Access-Control-Allow-Headers", "Content-Type, X-Requested-With");
   res.header("Content-Type", "application/json");
   next();
 });
@@ -104,6 +113,9 @@ app.get('/users/:id', userDetails);
 app.del('/users/:id', deleteUser);
 app.post('/users', createUser);
 app.put('/users/:id', updateUser);
+app.options('/users', handleOptions);
+app.options('/users/:id', handleOptions);
+
 
 app.listen(port);
 

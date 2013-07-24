@@ -1,0 +1,12 @@
+table {
+	height: 600px;
+}
+.table th {
+	text-align: center;
+}
+.table td {
+	width: 14%;
+}
+i {
+	float: right;
+}

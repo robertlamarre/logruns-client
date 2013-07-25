@@ -1,5 +1,5 @@
 #ignore directories
 server/node_modules/**/*
-server/nohm/**/*
-server/redis/**/*
+server/nohm/*
+server/redis/*
 client/node_modules/**/*

@@ -125,10 +125,6 @@
     </tbody>
   </table>
 </script>
-
-
-
-
 <script>
    $.ajaxPrefilter( function(options, originalOptions, jqXHR) {
     options.url = 'http://localhost:5000' + options.url;
@@ -181,7 +177,6 @@
     router.navigate('', {trigger:false});
   });
   
-
   var saveRunEntry = Backbone.View.extend({
     el: $('#runModal'),
     render: function(options) {
@@ -213,15 +208,12 @@
     }
   });
   var runEntryList = new RunEntryList();
-  //var monthList = new MonthList();
   var newEntry = new saveRunEntry();
   var router = new Router();
   router.on('route:home', function() {
     runEntryList.render();
-    //monthList.render();
   });
   router.on('route:newEntry', function(id) {
-    console.log("new entry");
     newEntry.render();
   })
   Backbone.history.start();

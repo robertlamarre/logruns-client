@@ -88,13 +88,6 @@ var listRunEntries = function (req, res) {
   });
 }
 
-var deleteUser = function (req, res) {
-  var user = new User();
-  user.id = req.params.id;
-  user.remove(function (err) {
-    res.send(204);
-  });
-}
 var deleteAll = function (req, res) {
     RunEntry.find(function (err, ids) {
     var runEntries = [];
@@ -117,20 +110,12 @@ var deleteAll = function (req, res) {
     }
   });
 }
+
 var createRunEntry = function (req, res) {
   var runEntry = new RunEntry();
   runEntry.p(req.body);
   runEntry.save(function (err) {
     res.send(runEntry.allProperties(true));
-  });
-}
-
-var updateUser = function (req, res) {
-  var user = new User();
-  user.id = req.params.id;
-  user.p(req.body);
-  user.save(function (err) {
-    res.send(user.allProperties(true));
   });
 }
 
@@ -142,6 +127,7 @@ var handleOptions = function (req, res) {
   res.send(200);
 
 }
+
 app.all('*', function(req, res, next){
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Content-Type, X-Requested-With");
@@ -151,30 +137,8 @@ app.all('*', function(req, res, next){
 app.get('/runs', listRunEntries);
 app.get('/months', listMonths);
 app.get('/delete', deleteAll);
-//app.get('/users/:id', userDetails);
-//app.del('/users/:id', deleteUser);
 app.post('/runs', createRunEntry);
-//app.put('/users/:id', updateUser);
 app.options('/runs', handleOptions);
 app.options('/runs/:id', handleOptions);
 
-
 app.listen(port);
-
-
-/*
-
-
-
-  var user = new User();
-  user.p({
-    firstname: 'Mark',
-    lastname: 'Davis',
-    age: 10
-  });
-
-  user.save(function (err) {
-      console.log('saved user! :-)');
-  });
-
-*/

@@ -31,7 +31,7 @@ var User = nohm.model('User', {
       type: 'string',
     },
     age: {
-      type: 'string',
+      type: 'integer',
     }
   }
 });

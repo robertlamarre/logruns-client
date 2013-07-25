@@ -10,3 +10,6 @@ table {
 i {
 	float: right;
 }
+a:hover{
+	cursor: pointer;
+}

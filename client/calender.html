@@ -105,11 +105,11 @@
       <% for (var i = 1; i < 36; ++i){ %>
         <td>
           <% if (i < 32) { %>
-          <a class="number"><%= i %></a>
           <% var fulldate = dateString + i%>
           <% if (i < 10) { %>
             <% var fulldate = dateString + '0' + i%>
           <%}%>
+          <a class="number" data-option=<%=fulldate%>><%= i %></a>
           <% _.each(runEntries, function(run){ %>
               <% if (run.get('date') == fulldate){%>
                 <div class="mileage"><%=run.get('distance')%></div>
@@ -168,7 +168,10 @@
           that.$el.html(template);
           $('a').on('click', function(){
             router.navigate('new', {trigger:true});
+            var date = $(this).attr('data-option');
+            $('#inputDate').val(date);
           });
+
         }
       })
     }

@@ -16,113 +16,118 @@
   <div class="container">
     <h1>LogRuns</h1>
     <div class="page"></div>
-    <table class="table table-bordered">
-      <thead>
-        <th>M</th>
-        <th>T</th>
-        <th>W</th>
-        <th>T</th>
-        <th>F</th>
-        <th>S</th>
-        <th>S</th>
-      </thead>
-      <tbody>
-      <tr>
-        <td><a class="number" >1</a></td>
-        <td><a class="number" href="#/new">2</a></td>
-        <td><a class="number"  >3</a></td>
-        <td><a class="number"  >4</a></td>
-        <td><a class="number"  >5</a></td>
-        <td><a class="number"  >6</a></td>
-        <td><a class="number"  >7</a></td>
-      </tr>
-      <tr>
-        <td><a class="number"  >8</a></td>
-        <td><a class="number"  >9</a></td>
-        <td><a class="number"  >10</a></td>
-        <td><a class="number"  >11</a></td>
-        <td><a class="number"  >12</a></td>
-        <td><a class="number"  >13</a></td>
-        <td><a class="number"  >14</a></td>
-      </tr>
-      <tr>
-        <td><a class="number"  >15</a></td>
-        <td><a class="number"  >16</a></td>
-        <td><a class="number"  >17</a></td>
-        <td><a class="number"  >18</a></td>
-        <td><a class="number"  >19</a></td>
-        <td><a class="number"  >20</a></td>
-        <td><a class="number"  >21</a></td>
-      </tr>
-      <tr>
-        <td><a class="number"  >22</a></td>
-        <td><a class="number"  >23</a></td>
-        <td><a class="number"  >24</a></td>
-        <td><a class="number"  >25</a></td>
-        <td><a class="number"  >26</a></td>
-        <td><a class="number"  >27</a></td>
-        <td><a class="number"  >28</a></td>
-      </tr>
-      <tr>
-        <td><a class="number"  >29</a></td>
-        <td><a class="number"  >30</a></td>
-        <td><a class="number"  >31</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      </tbody>
-
-    </table>
-
     <!-- Modal -->
-<div id="runModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">New Run Entry</h3>
-  </div>
-  <form class="form-horizontal runEntry">
-  <div class="modal-body">
-      <div class="control-group">
-        <label class="control-label" for="inputDate">Date:</label>
-        <div class="controls">
-          <input type="date" id="inputDate" name="date">
-        </div>
+    <div id="runModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">New Run Entry</h3>
       </div>
-      <div class="control-group">
-        <label class="control-label" for="inputDistance">Distance:</label>
-        <div class="controls">
-          <input type="text" name="distance" id="inputDistance">
+      <form class="form-horizontal runEntry">
+        <div class="modal-body">
+          <div class="control-group">
+            <label class="control-label" for="inputDate">Date:</label>
+            <div class="controls">
+              <input type="date" id="inputDate" name="date">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="inputDistance">Distance:</label>
+            <div class="controls">
+              <input type="text" name="distance" id="inputDistance">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="inputTime">Time:</label>
+            <div class="controls">
+              <input type="text" name="duration" id="inputTime">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="inputNotes">notes:</label>
+            <div class="controls">
+              <textarea name="notes" rows="6"></textarea>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="control-group">
-        <label class="control-label" for="inputTime">Time:</label>
-        <div class="controls">
-          <input type="text" name="duration" id="inputTime">
+        <div class="modal-footer">
+          <button id="submitRun" type="submit" class="btn btn-primary">LogRun</button>
+          <button id="modalClose" class="btn" data-dismiss="modal" aria-hidden="true">Close</button>    
         </div>
-      </div>
-      <div class="control-group">
-        <label class="control-label" for="inputNotes">notes:</label>
-        <div class="controls">
-          <textarea name="notes" rows="6"></textarea>
-        </div>
-      </div>
-      
-    
+      </form>
+    </div>
   </div>
-  <div class="modal-footer">
-  <button id="submitRun" type="submit" class="btn btn-primary">LogRun</button>
-    <button id="modalClose" class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    
-  </div>
-  </form>
-</div>
-  </div>
+
+<script type="text/template" id="month-list-template">
+  <table class="table table-bordered">
+    <thead>
+      <th>M</th>
+      <th>T</th>
+      <th>W</th>
+      <th>T</th>
+      <th>F</th>
+      <th>S</th>
+      <th>S</th>
+    </thead>
+    <tbody>
+      <tr>
+
+      <%= console.log(months[0].attributes["firstDay"]) %>
+      <% for (var i = 1 - months[0].attributes["firstDay"]; i < 36; ++i){ %>
+        <% if (i >= 0 && i < months[0].attributes["numDays"]) { %>
+          <td><a class=number><%= i + 1 %></a></td>
+        <%} else { %>
+          <td></td>
+        <%};%>
+        <% if (i % 7 == 0 && i < 35){ %>
+          </tr><tr>
+        <%};%>
+      <%};%>
+      </tr>
+    </tbody>
+  </table>
+</script>
 
 <script type="text/template" id="run-list-template">
   <%= console.log(runEntries) %>
-  </script>
+   <table class="table table-bordered">
+    <thead>
+      <th>M</th>
+      <th>T</th>
+      <th>W</th>
+      <th>T</th>
+      <th>F</th>
+      <th>S</th>
+      <th>S</th>
+    </thead>
+    <tbody>
+      <tr>
+      <% var dateString = "2013-07-" %>
+      <% for (var i = 1; i < 36; ++i){ %>
+        <td>
+          <% if (i < 32) { %>
+          <a class="number"><%= i %></a>
+          <% var fulldate = dateString + i%>
+          <% if (i < 10) { %>
+            <% var fulldate = dateString + '0' + i%>
+          <%}%>
+          <% _.each(runEntries, function(run){ %>
+              <% if (run.get('date') == fulldate){%>
+                <div class="mileage"><%=run.get('distance')%></div>
+              <%};%>
+          <%});%>
+          <%};%>
+        </td>
+        <% if (i % 7 == 0 && i < 35){ %>
+          </tr><tr>
+        <%};%>
+      <%};%>
+      </tr>
+    </tbody>
+  </table>
+</script>
+
+
+
 
 <script>
    $.ajaxPrefilter( function(options, originalOptions, jqXHR) {
@@ -150,6 +155,7 @@
   var RunEntry = Backbone.Model.extend({
     urlRoot: '/runs'
   });
+  
   var RunEntryList = Backbone.View.extend({
     el: '.page',
     render: function(){
@@ -160,16 +166,18 @@
         success: function(runEntries) {
           var template = _.template($('#run-list-template').html(), {runEntries: runEntries.models});
           that.$el.html(template);
+          $('a').on('click', function(){
+            router.navigate('new', {trigger:true});
+          });
         }
       })
     }
   });
-  $('#modalClose').on("click", function(){
+  
+  $('#modalClose, .close').on("click", function(){
     router.navigate('', {trigger:false});
   });
-  $('a').on('click', function(){
-    router.navigate('new', {trigger:true});
-  })
+  
 
   var saveRunEntry = Backbone.View.extend({
     el: $('#runModal'),
@@ -202,11 +210,12 @@
     }
   });
   var runEntryList = new RunEntryList();
+  //var monthList = new MonthList();
   var newEntry = new saveRunEntry();
   var router = new Router();
   router.on('route:home', function() {
-    console.log("going home");
     runEntryList.render();
+    //monthList.render();
   });
   router.on('route:newEntry', function(id) {
     console.log("new entry");
@@ -214,16 +223,6 @@
   })
   Backbone.history.start();
 
-
-
 </script>
-
-
-
-
-
-
-
-
 </body>
 </html>

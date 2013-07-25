@@ -39,6 +39,27 @@ var RunEntry = nohm.model('runEntry', {
   }
 });
 
+var Month = nohm.model('month', {
+  properties: {
+    mname: {
+      type: 'string',
+    },
+    firstDay: {
+      type: 'integer',
+    },
+    numDays: {
+      type: 'integer',
+    }
+  }
+});
+
+var listMonths = function (req, res) {
+  var months = [];
+  months.push({mname: 'july',
+               firstDay: 7,
+               numDays: 31});
+  res.send(months);
+}
 var listRunEntries = function (req, res) {
     RunEntry.find(function (err, ids) {
     var runEntries = [];
@@ -59,6 +80,7 @@ var listRunEntries = function (req, res) {
                       notes: props.notes});
           if (++count === len) {
             res.send(runEntries);
+           
           }
         });
       });
@@ -73,7 +95,28 @@ var deleteUser = function (req, res) {
     res.send(204);
   });
 }
+var deleteAll = function (req, res) {
+    RunEntry.find(function (err, ids) {
+    var runEntries = [];
+    var len = ids.length;
+    var count = 0;
+    if(ids.length === 0) {
+      res.send([]);
 
+    } else {
+      ids.forEach(function (id) {
+        var runEntry = new RunEntry();
+        runEntry.load(id, function (err, props) {
+          runEntry.remove();
+          if (++count === len) {
+            res.send(runEntries);
+           
+          }
+        });
+      });
+    }
+  });
+}
 var createRunEntry = function (req, res) {
   var runEntry = new RunEntry();
   runEntry.p(req.body);
@@ -106,6 +149,8 @@ app.all('*', function(req, res, next){
   next();
 });
 app.get('/runs', listRunEntries);
+app.get('/months', listMonths);
+app.get('/delete', deleteAll);
 //app.get('/users/:id', userDetails);
 //app.del('/users/:id', deleteUser);
 app.post('/runs', createRunEntry);

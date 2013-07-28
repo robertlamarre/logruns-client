@@ -8,6 +8,7 @@
   <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
   <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.1.0/bootstrap-modal.pack.js"></script>
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.0.2/js/bootstrap-datepicker.min.js"></script>
   <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
   
@@ -15,7 +16,10 @@
 <body>
   <div class="container">
     <h1>LogRuns</h1>
+    <input type="date" id="dp3">
+  
     <div class="page"></div>
+    
     <!-- Modal -->
     <div id="runModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-header">
@@ -101,23 +105,32 @@
     </thead>
     <tbody>
       <tr>
-      <% var dateString = "2013-07-" %>
-      <% for (var i = 1; i < 36; ++i){ %>
+      <% var dateString = $('#dp3').val().substring(0,8) %>
+      <% var dow = getDayOfWeek(1, $('#dp3').val().substring(5,7), $('#dp3').val().substring(0,4)) %>
+      <% var i,k %>
+      <% for ( i = 1; i < 43; ++i){ %>
         <td>
-          <% if (i < 32) { %>
-          <% var fulldate = dateString + i%>
-          <% if (i < 10) { %>
-            <% var fulldate = dateString + '0' + i%>
+          <% var day = i - dow %>
+          <% if (i <= 31 + dow && day > 0) { %>
+          <% var fulldate = dateString + day%>
+          <% if (k < 10 ) { %>
+            <% var fulldate = dateString + '0' + day%>
           <%}%>
-          <a class="number" data-option=<%=fulldate%>><%= i %></a>
+          <a class="number" data-option=<%=fulldate%>><%= day %></a>
+          <i class="icon-comment hidden" data-option=<%=fulldate %>></i>
           <% _.each(runEntries, function(run){ %>
               <% if (run.get('date') == fulldate){%>
+                <% var search = 'i[data-option=' + fulldate + ']'%>
+                <% console.log(search) %>
+                <% if (run.get('notes') != '' ) { %>
+                  <% $(search).removeClass('hidden') %>
+                <%};%>
                 <div class="mileage"><%=run.get('distance')%></div>
               <%};%>
           <%});%>
           <%};%>
         </td>
-        <% if (i % 7 == 0 && i < 35){ %>
+        <% if (i % 7 == 0){ %>
           </tr><tr>
         <%};%>
       <%};%>
@@ -166,6 +179,9 @@
             router.navigate('new', {trigger:true});
             var date = $(this).attr('data-option');
             $('#inputDate').val(date);
+            $('#inputDistance').val('');
+            $('#inputTime').val('');
+            $('#inputNotes').val('');
           });
 
         }
@@ -175,6 +191,17 @@
   
   $('#modalClose, .close').on("click", function(){
     router.navigate('', {trigger:false});
+  });
+  $('#runModal').keyup(function(e) {
+    if(e.keyCode == 27) { //Enter keycode
+      router.navigate('', {trigger:false})
+    }
+    
+  });
+
+  $('#dp3').on("change", function(){
+    Backbone.history.loadUrl( Backbone.history.fragment );
+    router.navigate('');
   });
   
   var saveRunEntry = Backbone.View.extend({
@@ -217,6 +244,50 @@
     newEntry.render();
   })
   Backbone.history.start();
+
+
+
+
+  function getTodaysDate(){
+    return (getYear() + '-' + getMonth() + '-' + getDay());
+    }
+  function getMonth(){
+    var today = new Date();
+    var mm = today.getMonth()+1;
+    if (mm < 10) {mm='0' +mm}
+    return mm;
+  }
+  function getDay(){
+    var today = new Date();
+    var dd = today.getDate();
+    if (dd<10){dd='0'+dd}
+    return dd;
+  }
+  function getYear(){
+    var today = new Date();
+    return today.getFullYear();
+  }
+function getDayOfWeek(day, month, year){
+    var a = year + 1;
+    var m = (month - 2) % 12;
+    if (m < 0) { m += 12 }
+    //console.log(m);
+    var d = day;
+    
+    w = d + Math.floor(2.6*m - 0.2);
+    w += 5*(year%4);
+    w += 4*(year%100);
+    w += 6*(year%400);
+ 
+    w = w % 7;
+    if (w == 0) { w = 7 }
+    console.log(w);
+    return w - 1;  
+
+  }
+
+  $('#dp3').val(getTodaysDate());
+
 
 </script>
 </body>

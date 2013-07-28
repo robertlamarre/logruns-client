@@ -5,15 +5,22 @@ table {
 	text-align: center;
 }
 .table td {
-	width: 14%;
-	height: 20%;
+	width: 14.29%;
+	height: 16.66667%;
 }
 i {
 	float: right;
+	cursor: pointer;
 }
 a:hover{
 	cursor: pointer;
 }
 .mileage{
 	text-align: center;
+}
+#datePicker {
+  float:right;
+}
+.hidden {
+	display: none;
 }

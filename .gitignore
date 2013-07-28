@@ -3,3 +3,5 @@ server/node_modules/**/*
 server/nohm/*
 server/redis/*
 client/node_modules/**/*
+server/server.js
+client/index.html

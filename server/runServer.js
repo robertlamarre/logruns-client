@@ -39,27 +39,6 @@ var RunEntry = nohm.model('runEntry', {
   }
 });
 
-var Month = nohm.model('month', {
-  properties: {
-    mname: {
-      type: 'string',
-    },
-    firstDay: {
-      type: 'integer',
-    },
-    numDays: {
-      type: 'integer',
-    }
-  }
-});
-
-var listMonths = function (req, res) {
-  var months = [];
-  months.push({mname: 'july',
-               firstDay: 7,
-               numDays: 31});
-  res.send(months);
-}
 var listRunEntries = function (req, res) {
     RunEntry.find(function (err, ids) {
     var runEntries = [];
@@ -119,14 +98,26 @@ var createRunEntry = function (req, res) {
   });
 }
 
-var handleOptions = function (req, res) {
-  console.log("options request");
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Content-Type, X-Requested-With");
-  res.header("Access-Control-Allow-Methods", "PUT, POST, DELETE, GET");
-  res.send(200);
+var getRunEntry = function (req, res) {
+  RunEntry.load(req.params.id, function (err, properties) {
+    if(err) {
+      console.log("broke");
+      res.send(404);
+    } else {
+      console.log("hey it worked");
+      res.send(properties);
+    }
+  });
+};
 
-}
+// var handleOptions = function (req, res) {
+//   console.log("options request");
+//   res.setHeader("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "Content-Type, X-Requested-With");
+//   res.header("Access-Control-Allow-Methods", "PUT, POST, DELETE, GET");
+//   res.send(200);
+
+// }
 
 app.all('*', function(req, res, next){
   res.header("Access-Control-Allow-Origin", "*");
@@ -134,11 +125,12 @@ app.all('*', function(req, res, next){
   res.header("Content-Type", "application/json");
   next();
 });
+
 app.get('/runs', listRunEntries);
-app.get('/months', listMonths);
 app.get('/delete', deleteAll);
 app.post('/runs', createRunEntry);
-app.options('/runs', handleOptions);
-app.options('/runs/:id', handleOptions);
+app.get('/runs/:id', getRunEntry);
+//app.options('/runs', handleOptions);
+//
 
 app.listen(port);

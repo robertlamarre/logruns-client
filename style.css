@@ -27,12 +27,15 @@ a:hover{
 .today {
 	background-color: rgba(211, 232, 255, 0.6);
 }
-.modal-backdrop {
+/*.modal-backdrop {
 	z-index: 0;
-}
+}*/
 .entryData {
 	padding: 10px;
 }
 .text-center{
 	text-align: center;
+}
+.entrylink{
+	color:#0F7C29;
 }

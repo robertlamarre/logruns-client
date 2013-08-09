@@ -14,8 +14,11 @@
   
 </head>
 <body>
+
   <div class="container">
+
     <h1>LogRuns</h1>
+    <p>we cool</p>
     <input type="date" id="dp3">
   
     <div class="page"></div>
@@ -35,6 +38,20 @@
             </div>
           </div>
           <div class="control-group">
+            <label class="control-label" for="effort">Type:</label>
+            <div class="controls">
+              <select name="effort" id="effort">
+                <option value="easy">Easy</option>
+                <option value="long">Long</option>
+                <option value="tempo">Tempo</option>
+                <option value="recovery">Recovery</option>
+                <option value="interval">Interval</option>
+                <option value="race">Race</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="control-group">
             <label class="control-label" for="inputDistance">Distance:</label>
             <div class="controls">
               <input type="text" name="distance" id="inputDistance">
@@ -47,7 +64,7 @@
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label" for="inputNotes">notes:</label>
+            <label class="control-label" for="inputNotes">Notes:</label>
             <div class="controls">
               <textarea id="inputNotes" name="notes" rows="6"></textarea>
             </div>
@@ -74,24 +91,22 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
           <h3><%=runEntry.get("date")%> Run</h3>
       </div>
+
+    
       
         <div class="modal-body">
-          <div class="entryData"><span class="label label-info">Time:</span>
-          <%=runEntry.get("duration")%></div>
-          
-          <div class="entryData">
-          <span class="label label-info">Distance:</span>
-          <%=runEntry.get("distance") + " miles"%>
+
+
+
+          <div class="hero-unit">
+            <h1><%=runEntry.get("distance") + " " + runEntry.get("effort")%></h1>
+            <p>Duration: <%=runEntry.get("duration") + " (" + getPace(runEntry.get("duration"), runEntry.get("distance")) + ")"%></p>
+            <div class="well">
+              <%=runEntry.get("notes")%>
+            </div>
           </div>
 
-          <div class="entryData">
-          <span class="label label-info">Pace:</span>
-          <%=getPace(runEntry.get("duration"), runEntry.get("distance"))%>
-          </div>
-          
-          <div class="entryData">
-          <span class="label label-info">Notes:</span><br>
-          <div class="well"><%=runEntry.get("notes")%></div></div>
+         </div>
         <div class="modal-footer">
           
           <button class="modalClose" class="btn" data-dismiss="modal" aria-hidden="true">Close</button>    
@@ -136,7 +151,7 @@
           <i class="icon-comment hidden" data-option=<%=fulldate %>></i>
           <%_.each(runEntries, function(run){ %>
             <%if (run.get('date') == fulldate){%>
-              <div class="mileage"><a href="#/view/<%=run.id%>"><%=run.get('distance') + " miles"%></a></div>
+              <div class="mileage"><a class="entrylink" href="#/view/<%=run.id%>"><%=run.get('distance') + " miles"%></a></div>
               <%sum += parseFloat(run.get('distance'))%>
             <%};%>
           <%});%>
@@ -162,7 +177,7 @@
 </script>
 <script>
    $.ajaxPrefilter( function(options, originalOptions, jqXHR) {
-    options.url = 'http://peaceful-shore-8521.herokuapp.com' + options.url;
+    options.url = 'http://localhost:5000' + options.url;
   });
   $.fn.serializeObject = function() {
     var o = {};
@@ -264,8 +279,6 @@
       return false;
     }
   });
-
-
   
   $('.modalClose, .close').on("click", function(){
     router.navigate('', {trigger:true});
@@ -282,28 +295,6 @@
     router.navigate('');
   });
   
-
-
-  // var EditUser = Backbone.View.extend({
-  //   el: '.page',
-  //   render: function(options) {
-  //     var that=this;
-  //     if (options.id) {
-  //       //GET request
-  //         that.user = new User({id: options.id});
-  //         that.user.fetch({
-  //             success: function (user) {
-  //               var template = _.template($('#edit-user-template').html(), {user:user});
-  //             that.$el.html(template);
-  //             }
-  //         });
-  //     }
-  //     else{
-  //       var template = _.template($('#edit-user-template').html(), {user:null});
-  //       this.$el.html(template);
-  //     }
-  //   },
-
   var Router = Backbone.Router.extend({
     routes: {
       '': 'home',
@@ -326,8 +317,6 @@
   })
 
   Backbone.history.start();
-
-
 
 
   function getTodaysDate(){

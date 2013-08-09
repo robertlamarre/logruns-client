@@ -113,6 +113,7 @@
       <th>F</th>
       <th>S</th>
       <th>S</th>
+      <th>TOTAL</th>
     </thead>
     <tbody>
       <tr>
@@ -122,6 +123,7 @@
       <%var dow = getDayOfWeek(1, month, year) %>
       <%var dim = getDaysInMonth(month, year) %>
       <%var i,k %>
+      <%var sum=0%>
       <%for ( i = 1; i < 43; ++i){ %>
         <%var day = i - dow %>
         <%if (i <= dim + dow && day > 0) { %>
@@ -134,8 +136,8 @@
           <i class="icon-comment hidden" data-option=<%=fulldate %>></i>
           <%_.each(runEntries, function(run){ %>
             <%if (run.get('date') == fulldate){%>
-              
               <div class="mileage"><a href="#/view/<%=run.id%>"><%=run.get('distance') + " miles"%></a></div>
+              <%sum += parseFloat(run.get('distance'))%>
             <%};%>
           <%});%>
         <%} else {%> 
@@ -143,7 +145,13 @@
         <%}%>
         </td>
         <% if (i % 7 == 0){ %>
+          <%if( day - 7 < getDay()){%>
+            <td><p class="text-center"><%=sum%></p></td>
+          <%}else{%>
+            <td></td>
+          <%}%>
           </tr><tr>
+          <%sum = 0%>
         <%};%>
       <%};%>
       </tr>

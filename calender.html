@@ -145,7 +145,9 @@
         <%}%>
         </td>
         <% if (i % 7 == 0){ %>
-          <%if( day - 7 < getDay()){%>
+          <%console.log(day + ' ' + year + ' ' + month)%>
+          <%console.log(getDay() + ' ' + getYear() + ' ' + getMonth())%>
+          <%if( day - 7 <= getDay() && parseInt(year) <= getYear() && parseInt(month) <= getMonth() || (parseInt(year) < getYear()) || (parseInt(year) == getYear() && parseInt(month) < getMonth()) ){%>
             <td><p class="text-center"><%=sum%></p></td>
           <%}else{%>
             <td></td>

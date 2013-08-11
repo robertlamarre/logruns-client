@@ -17,9 +17,40 @@
 
   <div class="container">
 
-    <h1>LogRuns</h1>
-    <p>we cool</p>
-    <input type="date" id="dp3">
+    
+   <div class="navbar">
+  <div class="navbar-inner">
+    <a class="brand" href="#">LogRuns</a>
+    <ul class="nav">
+      <li class="active"><a href="#">Calender</a></li>
+      <li><a href="#">Statistics</a></li>
+      <li><a href="#">Goals</a></li>
+      <li><a href="#">Social</a></li>
+    </ul>
+    <ul class="nav pull-right">
+      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">pcavanaugh 
+                          <span> </span><span class="badge badge-important">6</span><span> </span>
+                          <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                          <li><a href="#">Account Info</a></li>
+                          <li><a href="#">Notifications <span class="badge badge-important">6</span></a></li>
+                          <li class="divider"></li>
+                          <li><a href="#">Logout</a></li>
+                        </ul>
+                      </li>
+    </ul>
+  </div>
+</div>
+   <div class="btn-toolbar">
+    <div class="btn-group">
+  <button id="left-btn" class="btn"><i class="icon-chevron-left"></i></button>
+  <button id="date-btn" class="btn">Middle</button>
+  <button id="right-btn" class="btn"><i class="icon-chevron-right"></i></button>
+</div>
+</div>
+    
+
   
     <div class="page"></div>
     
@@ -41,12 +72,12 @@
             <label class="control-label" for="effort">Type:</label>
             <div class="controls">
               <select name="effort" id="effort">
-                <option value="easy">Easy</option>
-                <option value="long">Long</option>
-                <option value="tempo">Tempo</option>
-                <option value="recovery">Recovery</option>
-                <option value="interval">Interval</option>
-                <option value="race">Race</option>
+                <option value="Easy">Easy</option>
+                <option value="Long">Long</option>
+                <option value="Tempo">Tempo</option>
+                <option value="Recovery">Recovery</option>
+                <option value="Interval">Interval</option>
+                <option value="Race">Race</option>
               </select>
             </div>
           </div>
@@ -132,9 +163,9 @@
     </thead>
     <tbody>
       <tr>
-      <%var dateString = $('#dp3').val().substring(0,8) %>
-      <%var month = $('#dp3').val().substring(5,7) %>
-      <%var year = $('#dp3').val().substring(0,4) %>
+      <%var dateString = $('#date-btn').html().substring(0,8) %>
+      <%var month = $('#date-btn').html().substring(5,7) %>
+      <%var year = $('#date-btn').html().substring(0,4) %>
       <%var dow = getDayOfWeek(1, month, year) %>
       <%var dim = getDaysInMonth(month, year) %>
       <%var i,k %>
@@ -142,9 +173,9 @@
       <%for ( i = 1; i < 43; ++i){ %>
         <%var day = i - dow %>
         <%if (i <= dim + dow && day > 0) { %>
-          <%var fulldate = dateString + day%>
+          <%var fulldate = dateString + '-' + day%>
           <%if (day < 10 ) { %>
-            <%var fulldate = dateString + '0' + day%>
+            <%var fulldate = dateString + '-0' + day%>
           <%}%>
           <td data-option=<%= fulldate%> >
           <a class="number" data-option=<%=fulldate%>><%= day %></a>
@@ -290,8 +321,30 @@
     
   });
 
-  $('#dp3').on("change", function(){
-    Backbone.history.loadUrl( Backbone.history.fragment );
+
+  $('#left-btn').on('click', function(){
+    var dateString = $('#date-btn').html().substring(0,8);
+    var month = $('#date-btn').html().substring(5,7);
+    var year = $('#date-btn').html().substring(0,4);
+    month = parseInt(month) - 1;
+    year = parseInt(year);
+    if (month < 1) {month = 12; year-=1;}
+    if (month < 10) {month = "0" + month;}
+
+    $('#date-btn').html(year + '-' + month );
+    Backbone.history.loadUrl(Backbone.history.fragment);
+    router.navigate('');
+  });
+  $('#right-btn').on('click', function(){
+    var dateString = $('#date-btn').html().substring(0,8);
+    var month = $('#date-btn').html().substring(5,7);
+    var year = $('#date-btn').html().substring(0,4);
+    month = parseInt(month) + 1;
+    year = parseInt(year);
+    if (month > 12) {month = 1; year+=1;}
+    if (month < 10) {month = "0" + month;}
+    $('#date-btn').html(year + '-' + month );
+    Backbone.history.loadUrl(Backbone.history.fragment);
     router.navigate('');
   });
   
@@ -362,8 +415,8 @@ function getDayOfWeek(day, month, year){
     return pace;  
   }
 
-  $('#dp3').val(getTodaysDate());
-
+  
+  $('#date-btn').html(getYear() + '-' + getMonth());
 
 </script>
 </body>

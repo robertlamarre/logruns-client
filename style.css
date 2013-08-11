@@ -42,3 +42,12 @@ a:hover{
 .btn-toolbar{
 	text-align:center;
 }
+.other-month{
+	background-color:rgba(128, 128, 128, 0.08);
+}
+.other-month a.number{
+		color: rgb(194, 194, 194);
+}
+.other-month .entrylink{
+	color:rgba(0, 0, 0, 0.43);
+}

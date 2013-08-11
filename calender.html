@@ -28,12 +28,14 @@
       <li><a href="#">Social</a></li>
     </ul>
     <ul class="nav pull-right">
+    <li class="divider-vertical"></li>
       <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">pcavanaugh 
                           <span> </span><span class="badge badge-important">6</span><span> </span>
                           <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                           <li><a href="#">Account Info</a></li>
+                          <li><a href="#">Settings</a></li>
                           <li><a href="#">Notifications <span class="badge badge-important">6</span></a></li>
                           <li class="divider"></li>
                           <li><a href="#">Logout</a></li>
@@ -113,7 +115,6 @@
 </div>
 
 <script type="text/template" id="view-entry-template">
-  <%console.log(runEntry)%>
   <%=runEntry.date%>
 
 
@@ -149,7 +150,6 @@
 
 </script>
 <script type="text/template" id="run-list-template">
-  <%= console.log(runEntries) %>
    <table class="table table-bordered">
     <thead>
       <th>M</th>
@@ -163,14 +163,17 @@
     </thead>
     <tbody>
       <tr>
-      <%var dateString = $('#date-btn').html().substring(0,8) %>
+      <%var dateString = $('#date-btn').html().substring(0,7) %>
       <%var month = $('#date-btn').html().substring(5,7) %>
       <%var year = $('#date-btn').html().substring(0,4) %>
       <%var dow = getDayOfWeek(1, month, year) %>
       <%var dim = getDaysInMonth(month, year) %>
       <%var i,k %>
       <%var sum=0%>
+      <%console.log(dow)%>
       <%for ( i = 1; i < 43; ++i){ %>
+        
+        
         <%var day = i - dow %>
         <%if (i <= dim + dow && day > 0) { %>
           <%var fulldate = dateString + '-' + day%>
@@ -191,8 +194,6 @@
         <%}%>
         </td>
         <% if (i % 7 == 0){ %>
-          <%console.log(day + ' ' + year + ' ' + month)%>
-          <%console.log(getDay() + ' ' + getYear() + ' ' + getMonth())%>
           <%if( day - 7 <= getDay() && parseInt(year) <= getYear() && parseInt(month) <= getMonth() || (parseInt(year) < getYear()) || (parseInt(year) == getYear() && parseInt(month) < getMonth()) ){%>
             <td><p class="text-center"><%=sum%></p></td>
           <%}else{%>
@@ -264,13 +265,11 @@
     el: '.entry',
     render: function(options) {
       $('.modal').modal('hide');
-      console.log(options);
       var that = this;
       if (options.id) {
         that.runEntry = new RunEntry({id:options.id});
         that.runEntry.fetch({
           success: function (runEntry) {
-            console.log(runEntry);
             var template = _.template($('#view-entry-template').html(), {runEntry: runEntry});
             that.$el.html(template);
             that.$el.modal('show');
@@ -291,22 +290,18 @@
       $('.modal').modal('hide');
       $('#runModal').modal('show');
       $('.modal-backdrop').attr('style', 'z-index=0');
-      console.log('render');
     },
     events: {
       'submit .runEntry' : 'saveEntry'
     },
     saveEntry: function(ev) {
-      console.log(ev);
       var entryDetails = $(ev.currentTarget).serializeObject();
-      console.log(entryDetails);
       var entry = new RunEntry();
       entry.save(entryDetails, {
         success: function(entry) {
           router.navigate('', {trigger:true})
         }
       });
-      console.log(entryDetails);
       return false;
     }
   });
@@ -320,7 +315,15 @@
     }
     
   });
-
+  $('body').keyup(function(e) {
+    if(e.keyCode == 37) { //Enter keycode
+      $('#left-btn').click();
+    }
+    if(e.keyCode == 39){
+      $('#right-btn').click();
+    }
+    
+  });
 
   $('#left-btn').on('click', function(){
     var dateString = $('#date-btn').html().substring(0,8);
@@ -394,6 +397,10 @@
 function getDayOfWeek(day, month, year){
     month -= 1;
     var date = new Date(year, month, day);
+    var day = date.getDay();
+    if (day == 0){
+      return 6;
+    }
     return date.getDay() - 1;
   }
   function getDaysInMonth(month, year) {

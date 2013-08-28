@@ -14,9 +14,45 @@
   
 </head>
 <body>
+
   <div class="container">
-    <h1>LogRuns</h1>
-    <input type="date" id="dp3">
+
+    
+   <div class="navbar">
+  <div class="navbar-inner">
+    <a class="brand" href="#">LogRuns</a>
+    <ul class="nav">
+      <li class="active"><a href="#">Calender</a></li>
+      <li><a href="#">Statistics</a></li>
+      <li><a href="#">Goals</a></li>
+      <li><a href="#">Social</a></li>
+    </ul>
+    <ul class="nav pull-right">
+    <li class="divider-vertical"></li>
+      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">pcavanaugh 
+                          <span> </span><span class="badge badge-important">6</span><span> </span>
+                          <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                          <li><a href="#">Account Info</a></li>
+                          <li><a href="#">Settings</a></li>
+                          <li><a href="#">Notifications <span class="badge badge-important">6</span></a></li>
+                          <li class="divider"></li>
+                          <li><a href="#">Logout</a></li>
+                        </ul>
+                      </li>
+    </ul>
+  </div>
+</div>
+   <div class="btn-toolbar">
+    <div class="btn-group">
+  <button id="left-btn" class="btn"><i class="icon-chevron-left"></i></button>
+  <button id="date-btn" class="btn">Middle</button>
+  <button id="right-btn" class="btn"><i class="icon-chevron-right"></i></button>
+</div>
+</div>
+    
+
   
     <div class="page"></div>
     
@@ -35,6 +71,20 @@
             </div>
           </div>
           <div class="control-group">
+            <label class="control-label" for="effort">Type:</label>
+            <div class="controls">
+              <select name="effort" id="effort">
+                <option value="Easy">Easy</option>
+                <option value="Long">Long</option>
+                <option value="Tempo">Tempo</option>
+                <option value="Recovery">Recovery</option>
+                <option value="Interval">Interval</option>
+                <option value="Race">Race</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="control-group">
             <label class="control-label" for="inputDistance">Distance:</label>
             <div class="controls">
               <input type="text" name="distance" id="inputDistance">
@@ -47,7 +97,7 @@
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label" for="inputNotes">notes:</label>
+            <label class="control-label" for="inputNotes">Notes:</label>
             <div class="controls">
               <textarea id="inputNotes" name="notes" rows="6"></textarea>
             </div>
@@ -65,7 +115,6 @@
 </div>
 
 <script type="text/template" id="view-entry-template">
-  <%console.log(runEntry)%>
   <%=runEntry.date%>
 
 
@@ -74,16 +123,22 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
           <h3><%=runEntry.get("date")%> Run</h3>
       </div>
+
+    
       
         <div class="modal-body">
-        
-         
-        
-          <p><%=runEntry.get("duration")%><br>
-          <%=runEntry.get("distance")%><br>
-          <%=runEntry.get("notes")%></p>
-         
-         
+
+
+
+          <div class="hero-unit">
+            <h1><%=runEntry.get("distance") + " " + runEntry.get("effort")%></h1>
+            <p>Duration: <%=runEntry.get("duration") + " (" + getPace(runEntry.get("duration"), runEntry.get("distance")) + ")"%></p>
+            <div class="well">
+              <%=runEntry.get("notes")%>
+            </div>
+          </div>
+
+         </div>
         <div class="modal-footer">
           
           <button class="modalClose" class="btn" data-dismiss="modal" aria-hidden="true">Close</button>    
@@ -95,7 +150,6 @@
 
 </script>
 <script type="text/template" id="run-list-template">
-  <%= console.log(runEntries) %>
    <table class="table table-bordered">
     <thead>
       <th>M</th>
@@ -105,37 +159,71 @@
       <th>F</th>
       <th>S</th>
       <th>S</th>
+      <th>TOTAL</th>
     </thead>
     <tbody>
       <tr>
-      <%var dateString = $('#dp3').val().substring(0,8) %>
-      <%var month = $('#dp3').val().substring(5,7) %>
-      <%var year = $('#dp3').val().substring(0,4) %>
+      <%var fulldate %>
+      <%var dateString = $('#date-btn').html().substring(0,7) %>
+      <%var month = parseInt($('#date-btn').html().substring(5,7)) %>
+
+      <%var year = parseInt($('#date-btn').html().substring(0,4)) %>
       <%var dow = getDayOfWeek(1, month, year) %>
       <%var dim = getDaysInMonth(month, year) %>
+      <%var daysInPrevMonth = getDaysInMonth(month -1, year)%>
       <%var i,k %>
-      <%for ( i = 1; i < 43; ++i){ %>
-        <%var day = i - dow %>
-        <%if (i <= dim + dow && day > 0) { %>
-          <%var fulldate = dateString + day%>
-          <%if (day < 10 ) { %>
-            <%var fulldate = dateString + '0' + day%>
+      <%var sum=0%>
+      
+      <%for (var i = 1; i < 43; ++i){%>
+        <%var classname=''%>
+        <%month = parseInt($('#date-btn').html().substring(5,7)) %>
+        <%day = i - dow%>
+        <%if (day < 1){%>
+          <%classname="other-month"%>
+          <%day = daysInPrevMonth + day%>
+          <%month -= 1%>
+          <%console.log("month: " + month)%>
+          <%if (month < 1){%>
+            <%month = 12%>
+            <%year--%>
           <%}%>
-          <td data-option=<%= fulldate%> >
-          <a class="number" data-option=<%=fulldate%>><%= day %></a>
-          <i class="icon-comment hidden" data-option=<%=fulldate %>></i>
-          <%_.each(runEntries, function(run){ %>
-            <%if (run.get('date') == fulldate){%>
-              <a href="#/view/<%=run.id%>">VIEW</a>
-              <div class="mileage"><%=run.get('distance')%></div>
-            <%};%>
-          <%});%>
-        <%} else {%> 
-          <td> 
-        <%}%>
-        </td>
+        <%}else if (day > dim){%>
+          <%classname="other-month"%>
+          <%day -= dim%>
+          <%month += 1%>
+        <%if (month > 12){%>
+          <%month = 1%>
+          <%year++%>
+        <%};%>
+      <%};%>
+      <%if (month < 10){%>
+        <%month = '0' + month%>
+      <%}%>
+      
+      <%fulldate = year + '-' + month + '-' + day%>
+      <%if (day < 10){%>
+        <%fulldate = year + '-' + month + '-0' + day%>
+      <%};%>
+      
+      
+      <td data-option=<%=fulldate%> class=<%=classname%>>
+      <a class="number" data-option=<%=fulldate%>><%=day%></a>
+      <%_.each(runEntries, function(run){%>
+        <%if (run.get('date') == fulldate){%>
+          <div class="mileage"><a class="entrylink" href="#/view/<%=run.id%>"><%=run.get('distance') + " " + run.get('effort')%></a></div>
+          <%sum += parseFloat(run.get('distance'))%>
+        <%};%>
+      <%});%>
+    </td>
+      
         <% if (i % 7 == 0){ %>
+          <%if( day - 7 <= getDay() && parseInt(year) <= getYear() && parseInt(month) <= getMonth() || (parseInt(year) < getYear()) || (parseInt(year) == getYear() && parseInt(month) < getMonth()) ){%>
+            <td><p class="text-center"><%=sum%></p></td>
+          <%}else{%>
+            <td></td>
+          <%}%>
           </tr><tr>
+          <%sum = 0%>
         <%};%>
       <%};%>
       </tr>
@@ -144,7 +232,7 @@
 </script>
 <script>
    $.ajaxPrefilter( function(options, originalOptions, jqXHR) {
-    options.url = 'http://localhost:5000' + options.url;
+    options.url = 'http://peaceful-shore-8521.herokuapp.com' + options.url;
   });
   $.fn.serializeObject = function() {
     var o = {};
@@ -200,16 +288,15 @@
     el: '.entry',
     render: function(options) {
       $('.modal').modal('hide');
-      console.log(options);
       var that = this;
       if (options.id) {
         that.runEntry = new RunEntry({id:options.id});
         that.runEntry.fetch({
           success: function (runEntry) {
-            console.log(runEntry);
             var template = _.template($('#view-entry-template').html(), {runEntry: runEntry});
             that.$el.html(template);
             that.$el.modal('show');
+            $('.modal-backdrop').attr('style', 'z-index=0');
              $('.modalClose, .close').on("click", function(){
               router.navigate('', {trigger:true});
             });
@@ -225,27 +312,22 @@
     render: function(options) {
       $('.modal').modal('hide');
       $('#runModal').modal('show');
-      console.log('render');
+      $('.modal-backdrop').attr('style', 'z-index=0');
     },
     events: {
       'submit .runEntry' : 'saveEntry'
     },
     saveEntry: function(ev) {
-      console.log(ev);
       var entryDetails = $(ev.currentTarget).serializeObject();
-      console.log(entryDetails);
       var entry = new RunEntry();
       entry.save(entryDetails, {
         success: function(entry) {
           router.navigate('', {trigger:true})
         }
       });
-      console.log(entryDetails);
       return false;
     }
   });
-
-
   
   $('.modalClose, .close').on("click", function(){
     router.navigate('', {trigger:true});
@@ -256,34 +338,42 @@
     }
     
   });
+  $('body').keyup(function(e) {
+    if(e.keyCode == 37) { //Enter keycode
+      $('#left-btn').click();
+    }
+    if(e.keyCode == 39){
+      $('#right-btn').click();
+    }
+    
+  });
 
-  $('#dp3').on("change", function(){
-    Backbone.history.loadUrl( Backbone.history.fragment );
+  $('#left-btn').on('click', function(){
+    var dateString = $('#date-btn').html().substring(0,8);
+    var month = $('#date-btn').html().substring(5,7);
+    var year = $('#date-btn').html().substring(0,4);
+    month = parseInt(month) - 1;
+    year = parseInt(year);
+    if (month < 1) {month = 12; year-=1;}
+    if (month < 10) {month = "0" + month;}
+
+    $('#date-btn').html(year + '-' + month );
+    Backbone.history.loadUrl(Backbone.history.fragment);
+    router.navigate('');
+  });
+  $('#right-btn').on('click', function(){
+    var dateString = $('#date-btn').html().substring(0,8);
+    var month = $('#date-btn').html().substring(5,7);
+    var year = $('#date-btn').html().substring(0,4);
+    month = parseInt(month) + 1;
+    year = parseInt(year);
+    if (month > 12) {month = 1; year+=1;}
+    if (month < 10) {month = "0" + month;}
+    $('#date-btn').html(year + '-' + month );
+    Backbone.history.loadUrl(Backbone.history.fragment);
     router.navigate('');
   });
   
-
-
-  // var EditUser = Backbone.View.extend({
-  //   el: '.page',
-  //   render: function(options) {
-  //     var that=this;
-  //     if (options.id) {
-  //       //GET request
-  //         that.user = new User({id: options.id});
-  //         that.user.fetch({
-  //             success: function (user) {
-  //               var template = _.template($('#edit-user-template').html(), {user:user});
-  //             that.$el.html(template);
-  //             }
-  //         });
-  //     }
-  //     else{
-  //       var template = _.template($('#edit-user-template').html(), {user:null});
-  //       this.$el.html(template);
-  //     }
-  //   },
-
   var Router = Backbone.Router.extend({
     routes: {
       '': 'home',
@@ -308,8 +398,6 @@
   Backbone.history.start();
 
 
-
-
   function getTodaysDate(){
     return (getYear() + '-' + getMonth() + '-' + getDay());
     }
@@ -332,15 +420,33 @@
 function getDayOfWeek(day, month, year){
     month -= 1;
     var date = new Date(year, month, day);
+    var day = date.getDay();
+    if (day == 0){
+      return 6;
+    }
     return date.getDay() - 1;
   }
   function getDaysInMonth(month, year) {
     var date = new Date(year, month, 0);
     return date.getDate();
   }
+  function getPace(time, distance){
+    var regex = /^(\d\d):(\d\d)$/;
+    var minutes = time.replace(regex, '$1');
+    var seconds = time.replace(regex, '$2');
+    minutes = parseFloat(minutes);
+    seconds = parseFloat(seconds);
+    seconds = minutes * 60 + seconds; 
+    var pace = parseFloat(seconds / parseFloat(distance));
+    minutes = Math.floor(pace / 60);
+    seconds = Math.ceil(pace - (minutes * 60));
+    if (seconds < 10){seconds = "0" + seconds;}
+    pace = minutes + ":" + seconds;
+    return pace;  
+  }
 
-  $('#dp3').val(getTodaysDate());
-
+  
+  $('#date-btn').html(getYear() + '-' + getMonth());
 
 </script>
 </body>

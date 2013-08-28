@@ -35,6 +35,9 @@ var RunEntry = nohm.model('runEntry', {
     },
     notes: {
       type: 'string',
+    },
+    effort: {
+      type: 'string',
     }
   }
 });
@@ -56,7 +59,8 @@ var listRunEntries = function (req, res) {
                       date: props.date, 
                       distance: props.distance, 
                       duration: props.duration,
-                      notes: props.notes});
+                      notes: props.notes,
+                      effort: props.effort});
           if (++count === len) {
             res.send(runEntries);
            
@@ -110,15 +114,6 @@ var getRunEntry = function (req, res) {
   });
 };
 
-// var handleOptions = function (req, res) {
-//   console.log("options request");
-//   res.setHeader("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Headers", "Content-Type, X-Requested-With");
-//   res.header("Access-Control-Allow-Methods", "PUT, POST, DELETE, GET");
-//   res.send(200);
-
-// }
-
 app.all('*', function(req, res, next){
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Content-Type, X-Requested-With");
@@ -130,7 +125,5 @@ app.get('/runs', listRunEntries);
 app.get('/delete', deleteAll);
 app.post('/runs', createRunEntry);
 app.get('/runs/:id', getRunEntry);
-//app.options('/runs', handleOptions);
-//
 
 app.listen(port);

@@ -51,3 +51,15 @@ a:hover{
 .other-month .entrylink{
 	color:rgba(0, 0, 0, 0.43);
 }
+
+.loginForm, .signin {
+	margin: 0px;
+}
+
+button.signin.btn {
+	margin:0px;
+}
+
+.signinForm{
+	margin-top:4px;
+}

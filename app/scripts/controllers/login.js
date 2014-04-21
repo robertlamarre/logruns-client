@@ -8,8 +8,9 @@ angular.module('logrunsApp')
       }
       user.login({
         user: $scope.user,
-        success: function() {
-          $location.path('/');
+        success: function(data) {
+          console.log(data);
+          $location.path('/u/' + data.local.username);
         },
         error: function() {
           console.log('Invalid Credentials');

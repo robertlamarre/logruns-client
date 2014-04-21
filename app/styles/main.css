@@ -125,3 +125,9 @@ button {
 .clickable {
   cursor: pointer;
 }
+
+.username {
+  text-align: center;
+  font-weight: bold;
+  padding: 20px;
+}

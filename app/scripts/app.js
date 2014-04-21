@@ -12,6 +12,10 @@ var myModule = angular.module('logrunsApp', [
         templateUrl: 'views/home.html',
         controller: 'HomeCtrl'
       })
+      .when('/u/:username', {
+        templateUrl: 'views/calendar.html',
+        controller: 'CalendarCtrl'
+      })
       .when('/login', {
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl'
@@ -49,7 +53,7 @@ myModule.factory('user', function($http) {
       data: obj.user,
       withCredentials: true
     }).success(function(data) {
-      _user = data.user;
+      _user = data;
       success(_user);
     }).error(error);
   };
@@ -70,7 +74,8 @@ myModule.factory('user', function($http) {
       data: obj.user,
       withCredentials: true
     }).success(function(data) {
-      _user = data.user;
+      console.log(data);
+      _user = data;
       success(_user);
     }).error(error);
   };
@@ -116,10 +121,22 @@ myModule.factory('user', function($http) {
       method: 'GET',
       url: urlRoot + '/entries',
       params: {
+        username: obj.username,
         startDate: obj.startDate,
         endDate: obj.endDate
       },
       withCredentials: true
+    }).success(function(data) {
+      obj.success(data);
+    });
+
+  };
+
+  var getUsers = function(obj) {
+
+    $http({
+      method: 'GET',
+      url: urlRoot + '/users'
     }).success(function(data) {
       obj.success(data);
     });
@@ -131,6 +148,7 @@ myModule.factory('user', function($http) {
     login: login,
     getUser: getUser,
     logout: logout,
-    getEntries: getEntries
+    getEntries: getEntries,
+    getUsers: getUsers
   };
 });

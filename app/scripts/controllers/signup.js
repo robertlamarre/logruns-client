@@ -5,8 +5,8 @@ angular.module('logrunsApp')
     $scope.signup = function() {
       user.signup({
         user: $scope.user,
-        success: function() {
-          $location.path('/');
+        success: function(data) {
+          $location.path('/u/' + data.local.username);
         },
         error: function() {
           console.log('Username ALREADY EXISTS');

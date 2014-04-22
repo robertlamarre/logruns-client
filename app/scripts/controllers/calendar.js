@@ -14,7 +14,6 @@ angular.module('logrunsApp')
         endDate: $scope.date.endOf('month').toISOString(),
         success: function(entries) {
           $scope.entries = entries;
-          console.log(entries);
         },
         error: function(error) {
           console.log(error);
@@ -30,10 +29,11 @@ angular.module('logrunsApp')
       }
       var entries = $scope.entries;
       var result = [];
-      var inputDate = $scope.date.startOf('day').date(day);
+      var inputDate = $scope.date.endOf('day').add('hours', 4).date(day).zone(0);
       for (var i = 0; i < entries.length; ++i) {
         if (inputDate.isSame(entries[i].date, 'day')) {
           result.push(entries[i]);
+          console.log(entries[i]);
         }
       }
       return result;
@@ -48,6 +48,8 @@ angular.module('logrunsApp')
     user.getUser({
       success: function(data) {
         $scope.account = data.local.username;
+        $scope.username = data.local.username;
+        getEntries();
       },
       error: function() {
         console.log('Not signed in');

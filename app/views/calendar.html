@@ -1,5 +1,7 @@
 <div class="toolbar coolGradient">
-<span class="toolbarItem title">LogRuns</span>
+<a href="/" class="toolbarItem title">LogRuns</a>
+<a href="#/u/{{account}}" class="toolbarItem title">calendar</a>
+<a href="/" class="toolbarItem title">users</a>
 <span class="toolbarItem account" ng-click="logInOut()">{{account}}</span>
 </div>
 <div class="username">{{username}}'s calendar</div>
@@ -21,8 +23,7 @@
 <div class="day" ng-repeat="i in getDays() track by $index">
 <a href="#/entry/date">{{i}}</a>
 <div ng-repeat="entry in getEntry(i)">
-<p>duration: {{entry.duration}}</p>
-<p>distance: {{entry.distance}}<p>
+<a href="#/entry/{{entry._id}}">{{entry.distance}} miles</a>
 </div>
 </div>
 </div>

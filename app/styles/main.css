@@ -71,6 +71,12 @@ button {
 .toolbarItem {
   padding: 10px;
   float: left;
+  color: white;
+  text-decoration: none;
+}
+
+.toolbarItem:nth-child(n+1) {
+  border-left: 1px solid white;
 }
 
 .coolGradient {
@@ -137,6 +143,27 @@ button {
   background-color: #e1e1e1;
   margin: 20px;
   -webkit-box-shadow: 1px 1px 10px 0px rgba(50, 50, 50, 0.75);
--moz-box-shadow:    1px 1px 10px 0px rgba(50, 50, 50, 0.75);
-box-shadow:         1px 1px 10px 0px rgba(50, 50, 50, 0.75);
+  -moz-box-shadow:    1px 1px 10px 0px rgba(50, 50, 50, 0.75);
+  box-shadow:         1px 1px 10px 0px rgba(50, 50, 50, 0.75);
+}
+
+.comments {
+  background-color: #e1e1e1;
+  width: 400px;
+  margin: 20px;
+}
+
+.comment {
+  background-color: #c8c8c8;
+  margin-top: 20px;
+}
+
+.entry {
+  background-color: #e1e1e1;
+  margin: 20px;
+}
+
+.commentSubmit > * {
+  margin-left: 20px;
+  float: left;
 }

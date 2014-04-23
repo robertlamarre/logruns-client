@@ -77,10 +77,6 @@ angular.module('logrunsApp')
 
       if (cache.user) {
         success(cache.user);
-      }
-
-      if (cache.user) {
-        success(cache.user);
         return;
       }
 

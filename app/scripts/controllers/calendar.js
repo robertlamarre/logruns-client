@@ -2,7 +2,7 @@
 
 angular.module('logrunsApp')
   .controller('CalendarCtrl', function ($scope, $location, $routeParams, user) {
-    $scope.account = 'Sign in';
+
     $scope.date = moment();
     $scope.username = $routeParams.username;
     console.log('User: ', $routeParams.username);
@@ -45,41 +45,6 @@ angular.module('logrunsApp')
     };
 
     setDate();
-    user.getUser({
-      success: function(data) {
-        $scope.account = data.local.username;
-        $scope.username = data.local.username;
-        getEntries();
-      },
-      error: function() {
-        console.log('Not signed in');
-        $scope.account = 'Sign in';
-      }
-    });
-
-    var login = function() {
-      $location.path('/login');
-    };
-
-    var logout = function() {
-      $scope.account = 'Sign in';
-      user.logout({
-        success: function() {
-          console.log('Successfully signed out');
-        },
-        error: function() {
-          console.log('Error signing out');
-        }
-      });
-    };
-
-    $scope.logInOut = function() {
-      if ($scope.account.toLowerCase() === 'sign in') {
-        login();
-        return;
-      }
-      logout();
-    };
 
     $scope.getDays = function() {
       var day = $scope.date.startOf('month').day()-1;

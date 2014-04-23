@@ -4,7 +4,7 @@ angular.module('logrunsApp')
   .directive('toolbar', function() {
     return {
       restrict: 'E',
-      templateUrl: '../../templates/toolbar-template.html',
+      templateUrl: '../../views/templates/toolbar-template.html',
       controller: function($scope, user) {
         user.getUser({
           success: function(data) {

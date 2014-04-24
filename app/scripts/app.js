@@ -32,6 +32,10 @@ angular.module('logrunsApp', [
         templateUrl: 'views/entry.html',
         controller: 'EntryCtrl'
       })
+      .when('/users', {
+        templateUrl: 'views/users.html',
+        controller: 'UsersCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

@@ -6,6 +6,7 @@
 body {
   margin: 0px;
   background-color: #fff;
+  color: #333;
 }
 
 .container {
@@ -113,7 +114,7 @@ input:focus, textarea:focus {
   margin: auto;
 }
 
-.day a:link, .day a:visited {
+.newsfeed a:link, .newsfeed a:visited, .day a:link, .day a:visited {
   color: #2f6f9f;
   text-decoration: none;
 }
@@ -260,4 +261,10 @@ input.ng-valid:not(.ng-pristine) {
 .commentUsername {
   font-weight: bold;
   margin-left: 10px;
+}
+
+.newsfeed {
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
 }

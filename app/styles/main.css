@@ -273,3 +273,8 @@ input.ng-valid:not(.ng-pristine) {
   font-style: italic;
   padding: 10px;
 }
+
+.datestamp {
+  color: #c8c8c8;
+  font-size: 10px;
+}

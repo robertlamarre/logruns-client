@@ -39,15 +39,12 @@ angular.module('logrunsApp')
         return;
       }
 
-      console.log(cache.user, obj.user);
-
       $http({
         method: 'POST',
         url: urlRoot + '/login',
         data: obj.user,
         withCredentials: true
       }).success(function(data) {
-        console.log(data);
         cache.user = data;
         success(cache.user);
       }).error(error);
@@ -102,6 +99,7 @@ angular.module('logrunsApp')
         method: 'GET',
         url: urlRoot + '/users'
       }).success(function(data) {
+        cache.users = data;
         obj.success(data);
       });
 
@@ -147,7 +145,6 @@ angular.module('logrunsApp')
           id: obj.id
         }
       }).success(function(data) {
-        console.log(data);
         obj.success(data);
       });
 

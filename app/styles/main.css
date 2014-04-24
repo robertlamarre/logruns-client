@@ -268,3 +268,8 @@ input.ng-valid:not(.ng-pristine) {
   margin-left: auto;
   margin-right: auto;
 }
+
+.blockquote {
+  font-style: italic;
+  padding: 10px;
+}

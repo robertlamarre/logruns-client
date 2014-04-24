@@ -1,11 +1,12 @@
 <toolbar></toolbar>
-<div class="newsfeed entry">
+<div class="entry">
 <div class="entryHeader">News Feed</div>
 <div class="entryBody">
 <div class="newsfeedItem entryField" ng-repeat="entry in entries">
 <a href="#/u/{{entry.username}}">{{entry.username}}</a>
 ran
 <a href="#/entry/{{entry._id}}">{{entry.distance}} miles</a> in {{entry.duration}}
+<div class="blockquote">{{entry.notes}}</div>
 </div>
 </div>
 </div>

@@ -50,7 +50,6 @@ angular.module('logrunsApp')
     var getCalendar = function() {
       var date = $scope.date.clone();
       var daysBack = date.startOf('month').day() - 1;
-      daysBack = daysBack < 7 ? daysBack + 7 : daysBack;
       date.subtract('days', daysBack);
       var days = [];
       var month = $scope.date.month();
@@ -75,11 +74,13 @@ angular.module('logrunsApp')
 
     $scope.getLastMonth = function() {
       $scope.date.subtract('months', 1);
+      getCalendar();
       setDate();
     };
 
     $scope.getNextMonth = function() {
       $scope.date.add('months', 1);
+      getCalendar();
       setDate();
     };
   });

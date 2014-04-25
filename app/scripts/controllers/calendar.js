@@ -5,6 +5,7 @@ angular.module('logrunsApp')
 
     $scope.date = moment();
     $scope.username = $routeParams.username;
+    $scope.days = [];
     console.log('User: ', $routeParams.username);
 
     var getEntries = $scope.getEntries = function() {
@@ -23,15 +24,15 @@ angular.module('logrunsApp')
 
     getEntries();
 
-    $scope.getEntry = function(day) {
-      if (!$scope.entries || !day) {
+    $scope.getEntry = function(date) {
+      if (!$scope.entries || !date) {
         return;
       }
+      date = moment(date).zone(0);
       var entries = $scope.entries;
       var result = [];
-      var inputDate = $scope.date.endOf('day').add('hours', 4).date(day).zone(0);
       for (var i = 0; i < entries.length; ++i) {
-        if (inputDate.isSame(entries[i].date, 'day')) {
+        if (date.isSame(entries[i].date, 'day')) {
           result.push(entries[i]);
           console.log(entries[i]);
         }
@@ -46,15 +47,31 @@ angular.module('logrunsApp')
 
     setDate();
 
-    $scope.getDays = function() {
-      var day = $scope.date.startOf('month').day()-1;
-      day = day < 0 ? 6: day;
-      var days = new Array(day);
-      for (var i=0; i < $scope.date.daysInMonth(); ++i) {
-        days.push(i+1);
+    var getCalendar = function() {
+      var date = $scope.date.clone();
+      var daysBack = date.startOf('month').day() - 1;
+      daysBack = daysBack < 7 ? daysBack + 7 : daysBack;
+      date.subtract('days', daysBack);
+      var days = [];
+      var month = $scope.date.month();
+      var styleClass = 'active';
+      for (var i = 0; i < 42; i++) {
+        if (month === date.month()) {
+          styleClass = 'active';
+        } else {
+          styleClass = 'inactive';
+        }
+        days.push({
+          day: date.date(),
+          style: styleClass,
+          date: date.format('MM-DD-YYYY')
+        });
+        date.add('days',1);
       }
-      return days;
+      $scope.days = days;
     };
+
+    getCalendar();
 
     $scope.getLastMonth = function() {
       $scope.date.subtract('months', 1);

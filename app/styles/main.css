@@ -129,6 +129,9 @@ input:focus, textarea:focus {
   border-color: #ddd;
 }
 
+.day.inactive {
+  background-color: rgb(243, 243, 243);
+}
 .dow {
   width: 840px;
   margin: auto;

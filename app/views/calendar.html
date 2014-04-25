@@ -15,9 +15,9 @@
 </div>
 </div>
 <div class="calendar">
-<div class="day" ng-repeat="i in getDays() track by $index">
-<a href="#/entry">{{i}}</a>
-<div class="calendarEntry" ng-repeat="entry in getEntry(i)">
+<div class="day {{dateObj.style}}" ng-repeat="dateObj in days track by $index">
+<a href="#/entry">{{dateObj.day}}</a>
+<div class="calendarEntry" ng-repeat="entry in getEntry(dateObj.date)">
 <a href="#/entry/{{entry._id}}">{{entry.distance}} miles</a>
 </div>
 </div>

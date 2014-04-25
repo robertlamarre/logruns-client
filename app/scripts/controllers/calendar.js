@@ -81,11 +81,14 @@ angular.module('logrunsApp')
         date.add('days', id*7);
         for (var i = 0; i < 7; ++i) {
           dayEntries = $scope.entryMap[date.format('MM-DD-YYYY')];
-          if (!dayEntries) { continue; }
+          if (!dayEntries) {
+            date.add('days', 1);
+            continue;
+          }
           for (var k = 0; k < dayEntries.length; ++k) {
             summary[id] += dayEntries[k].distance;
           }
-          date.add('days',1);
+          date.add('days', 1);
         }
       }
       $scope.summary = summary;

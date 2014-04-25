@@ -84,6 +84,13 @@ input:focus, textarea:focus {
 .toolbar {
   height: 40px;
   width: 100%;
+  position: fixed;
+  top: 0px;
+}
+
+.toolbarPlaceholder {
+  height: 40px;
+  width: 100%;
 }
 
 .toolbarItem {
@@ -109,10 +116,35 @@ input:focus, textarea:focus {
   cursor: pointer;
 }
 
+.calendarContainer {
+  width: 896px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.totals div {
+  width: 112px;
+  height: 105px;
+  border-width: 0px 1px 1px 0px;
+  border-style: solid;
+  border-color: #ddd;
+  float: right;
+}
+
+.totals div:first-child {
+  border-top-width: 1px;
+  height: 106px;
+}
+
+.totals div:last-child {
+  height: 104px;
+}
+
 .calendar {
-  width: 840px;
-  height: 600px;
+  width: 784px;
+  height: 630px;
   margin: auto;
+  float: left;
 }
 
 .newsfeed a:link, .newsfeed a:visited, .day a:link, .day a:visited {
@@ -122,8 +154,8 @@ input:focus, textarea:focus {
 
 .day {
   float: left;
-  width: 120px;
-  height: 120px;
+  width: 112px;
+  height: 105px;
   border-width: 1px 0px 0px 1px;
   border-style: solid;
   border-color: #ddd;
@@ -133,19 +165,19 @@ input:focus, textarea:focus {
   background-color: rgb(243, 243, 243);
 }
 .dow {
-  width: 840px;
   margin: auto;
   height: 20px;
   background-color: #f5f5f5;
-
+  float: left;
   border-width: 1px;
   border-color: #ddd;
   border-radius: 4px 4px 0 0;
+  text-align: center;
 
 }
 
 .dow span {
-  width: 120px;
+  width: 112px;
   float: left;
 }
 

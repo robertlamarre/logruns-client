@@ -12,7 +12,7 @@ angular.module('logrunsApp')
     var createEntryMap = function(entries) {
       var entryMap = {};
       _.each(entries, function(entry) {
-        var key = moment(entry.date).zone(0).format('MMDDYYYY');
+        var key = moment(entry.date).zone(0).format('MM-DD-YYYY');
         if (!entryMap[key]) {
           entryMap[key] = [entry];
         } else {
@@ -32,6 +32,7 @@ angular.module('logrunsApp')
         endDate: end,
         success: function(entries) {
           $scope.entries = createEntryMap(entries);
+          getWeekSummary();
         },
         error: function(error) {
           console.log(error);
@@ -55,6 +56,7 @@ angular.module('logrunsApp')
       var days = [];
       var month = $scope.date.month();
       var styleClass = 'active';
+      $scope.firstDay = date.clone();
       for (var i = 0; i < 42; i++) {
         if (month === date.month()) {
           styleClass = 'active';
@@ -64,11 +66,31 @@ angular.module('logrunsApp')
         days.push({
           day: date.date(),
           style: styleClass,
-          date: date.format('MMDDYYYY')
+          date: date.format('MM-DD-YYYY')
         });
         date.add('days',1);
       }
       $scope.days = days;
+    };
+
+    var getWeekSummary = function() {
+      var summary = [0,0,0,0,0,0];
+      for (var id = 0; id < 6; ++id) {
+        var dayEntries = [];
+        var date = $scope.firstDay.clone();
+        date.add('days', id*7);
+        for (var i = 0; i < 7; ++i) {
+          dayEntries = $scope.entryMap[date.format('MM-DD-YYYY')];
+          if (!dayEntries) { continue; }
+          for (var k = 0; k < dayEntries.length; ++k) {
+            summary[id] += dayEntries[k].distance;
+          }
+          date.add('days',1);
+        }
+      }
+      $scope.summary = summary;
+      console.log('SUMMARY', summary);
+
     };
 
     getCalendar();

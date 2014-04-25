@@ -6,15 +6,32 @@ angular.module('logrunsApp')
     $scope.date = moment();
     $scope.username = $routeParams.username;
     $scope.days = [];
+    $scope.entryMap = {};
     console.log('User: ', $routeParams.username);
 
+    var createEntryMap = function(entries) {
+      var entryMap = {};
+      _.each(entries, function(entry) {
+        var key = moment(entry.date).zone(0).format('MMDDYYYY');
+        if (!entryMap[key]) {
+          entryMap[key] = [entry];
+        } else {
+          entryMap[key].push(entry);
+        }
+      });
+      $scope.entryMap = entryMap;
+      console.log(entryMap);
+    };
+
     var getEntries = $scope.getEntries = function() {
+      var start = $scope.date.clone().subtract('months',1).toISOString();
+      var end = $scope.date.clone().add('months',1).toISOString();
       user.getEntries({
         username: $scope.username,
-        startDate: $scope.date.startOf('month').toISOString(),
-        endDate: $scope.date.endOf('month').toISOString(),
+        startDate: start,
+        endDate: end,
         success: function(entries) {
-          $scope.entries = entries;
+          $scope.entries = createEntryMap(entries);
         },
         error: function(error) {
           console.log(error);
@@ -23,22 +40,6 @@ angular.module('logrunsApp')
     };
 
     getEntries();
-
-    $scope.getEntry = function(date) {
-      if (!$scope.entries || !date) {
-        return;
-      }
-      date = moment(date).zone(0);
-      var entries = $scope.entries;
-      var result = [];
-      for (var i = 0; i < entries.length; ++i) {
-        if (date.isSame(entries[i].date, 'day')) {
-          result.push(entries[i]);
-          console.log(entries[i]);
-        }
-      }
-      return result;
-    };
 
     var setDate = function() {
       $scope.daysInMonth = new Array($scope.date.daysInMonth());
@@ -63,7 +64,7 @@ angular.module('logrunsApp')
         days.push({
           day: date.date(),
           style: styleClass,
-          date: date.format('MM-DD-YYYY')
+          date: date.format('MMDDYYYY')
         });
         date.add('days',1);
       }

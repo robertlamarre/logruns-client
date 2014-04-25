@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('logrunsApp')
-  .controller('EntryCtrl', function ($scope, $routeParams, $route, user) {
+  .controller('EntryCtrl', function ($scope, $routeParams, $route, user, time) {
 
     user.getUser({
       success: function(data) {
@@ -49,6 +49,16 @@ angular.module('logrunsApp')
           $route.reload();
         }
       });
+    };
+
+    $scope.getPace = function(distance, duration) {
+      var pace = time.getPace({
+        distance: distance,
+        duration: duration,
+        format: true
+      });
+
+      return pace;
     };
 
   });

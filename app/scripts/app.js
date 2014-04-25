@@ -4,7 +4,7 @@ angular.module('logrunsApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
-  'ngRoute'
+  'ngRoute',
 ])
   .config(function ($routeProvider) {
     $routeProvider

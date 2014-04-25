@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('logrunsApp')
-  .controller('NewEntryCtrl', function ($scope, $location, user) {
+  .controller('NewEntryCtrl', function ($scope, $location, user, time) {
     $scope.entry = {};
 
     user.getUser({
@@ -24,5 +24,15 @@ angular.module('logrunsApp')
           console.error('busted', data);
         }
       });
+    };
+
+    $scope.getPace = function() {
+      var pace = time.getPace({
+        distance: $scope.entry.distance,
+        duration: $scope.entry.duration,
+        format: true
+      });
+
+      return pace;
     };
   });

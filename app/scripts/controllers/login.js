@@ -10,7 +10,7 @@ angular.module('logrunsApp')
         user: $scope.user,
         success: function(data) {
           console.log(data);
-          $location.path('/u/' + data.local.username);
+          window.history.back();
         },
         error: function() {
           console.log('Invalid Credentials');

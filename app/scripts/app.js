@@ -36,6 +36,14 @@ angular.module('logrunsApp', [
         templateUrl: 'views/users.html',
         controller: 'UsersCtrl'
       })
+      .when('/logout', {
+        templateUrl: 'views/logout.html',
+        controller: 'LogoutCtrl'
+      })
+      .when('/notifications', {
+        templateUrl: 'views/notifications.html',
+        controller: 'NotificationsCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

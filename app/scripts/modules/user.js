@@ -52,7 +52,7 @@ angular.module('logrunsApp')
     };
 
     var logout = function(obj) {
-
+      obj = obj || {};
       var success = obj.success || noop;
       var error = obj.error || noop;
 

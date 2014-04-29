@@ -2,6 +2,16 @@
 <a href="/" class="toolbarItem title">LogRuns</a>
 <a href="#/u/{{displayName}}" class="toolbarItem title">calendar</a>
 <a href="#/users" class="toolbarItem title">users</a>
-<a href="#/login" class="toolbarItem account">{{displayName}}</a>
+<a href="#/login" ng-show="items.length == 0" class="toolbarItem accountInfo">Login</a>
+<div ng-show="items.length > 0" class="toolbarItem dropdown accountInfo">
+  <a class="dropdown-toggle">
+    {{displayName}}
+  </a><div class="caret"></div>
+  <ul class="dropdown-menu">
+    <li ng-repeat="choice in items">
+      <a href="{{choice.href}}">{{choice.text}}</a>
+    </li>
+  </ul>
+</div>
 </div>
 <div class="toolbarPlaceholder"></div>

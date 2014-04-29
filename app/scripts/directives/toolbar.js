@@ -5,15 +5,25 @@ angular.module('logrunsApp')
     return {
       restrict: 'E',
       templateUrl: '../../views/templates/toolbar-template.html',
-      controller: function($scope, user) {
+      controller: function($scope, $document, user) {
+        $scope.items = [];
         user.getUser({
           success: function(data) {
+            $scope.href = '';
             $scope.displayName = data.local.username;
+            $scope.items = [{
+              text: 'Notifications',
+              href: '#/notifications'
+            },
+            {
+              text: 'Logout',
+              href: '#/logout'
+            }];
           },
           error: function() {
-            $scope.displayName = 'Sign in';
           }
         });
+
       }
     };
   });

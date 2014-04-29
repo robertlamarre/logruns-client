@@ -346,6 +346,7 @@ input.ng-valid:not(.ng-pristine) {
   display: inline-block;
   margin-bottom: 2px;
   margin-left: 2px;
+  margin-right: 3px;
 }
 
 .dropdown {

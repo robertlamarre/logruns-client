@@ -4,8 +4,13 @@
 {{dispDate}}
 <span class="clickable" ng-click="getNextMonth()">&gt;</span>
 </div>
-<div class="calendarContainer">
 
+<div class="stats">
+<div><div class="label">Last 7 Days:</div><div class="stat">{{stats.rolling7}} miles</div></div>
+<div><div class="label">Last 30 Days: </div><div class="stat">{{stats.rolling30}} miles</div></div>
+</div>
+
+<div class="calendarContainer">
 <div class="dow">
 <span>Monday</span>
 <span>Tuesday</span>
@@ -16,7 +21,6 @@
 <span>Sunday</span>
 <span>Totals</span>
 </div>
-
 <div class="calendar">
 <div class="day {{dateObj.style}}" ng-repeat="dateObj in days track by $index">
 <a href="#/entry">{{dateObj.day}}</a>
@@ -26,11 +30,8 @@
 </div>
 </div>
 <div class="totals">
-<div><span ng-show="summary[0] > 0">{{summary[0]}} miles</span></div>
-<div><span ng-show="summary[1] > 0">{{summary[1]}} miles</span></div>
-<div><span ng-show="summary[2] > 0">{{summary[2]}} miles</span></div>
-<div><span ng-show="summary[3] > 0">{{summary[3]}} miles</span></div>
-<div><span ng-show="summary[4] > 0">{{summary[4]}} miles</span></div>
-<div><span ng-show="summary[5] > 0">{{summary[5]}} miles</span></div>
+<div ng-repeat="sum in summary track by $index"><span ng-show="sum > 0">{{sum | number : 1}} miles</span></div>
 </div>
 </div>
+
+

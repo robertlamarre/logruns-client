@@ -209,7 +209,7 @@ input:focus, textarea:focus {
 .username {
   text-align: center;
   font-weight: bold;
-  padding: 20px;
+  padding: 10px;
 }
 
 .userList {
@@ -389,4 +389,23 @@ input.ng-valid:not(.ng-pristine) {
 
 .dropdown-menu li:hover {
   background-color: #f5f5f5;
+}
+
+.stats {
+  width: 220px;
+  height: 60px;
+  margin: auto;
+  margin-bottom: 5px;
+  padding: 10px;
+  background-color: rgb(243, 243, 243);
+  border: 1px solid #ddd;
+
+}
+
+.stats .label {
+  float: left;
+}
+
+.stats .stat {
+  float: right;
 }

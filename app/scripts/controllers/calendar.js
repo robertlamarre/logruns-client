@@ -52,6 +52,9 @@ angular.module('logrunsApp')
     var getCalendar = function() {
       var date = $scope.date.clone();
       var daysBack = date.startOf('month').day() - 1;
+      if (daysBack <= 3) {
+        daysBack += 7;
+      }
       date.subtract('days', daysBack);
       var days = [];
       var month = $scope.date.month();
@@ -96,17 +99,32 @@ angular.module('logrunsApp')
 
     };
 
+    var getStats = function() {
+      user.getStats({
+        username: $scope.username,
+        success: function(data) {
+          console.log('STATS', data);
+          $scope.stats = data;
+        }
+      });
+    };
+
     getCalendar();
+    getStats();
 
     $scope.getLastMonth = function() {
       $scope.date.subtract('months', 1);
       getCalendar();
       setDate();
+      getWeekSummary();
+      getStats();
     };
 
     $scope.getNextMonth = function() {
       $scope.date.add('months', 1);
       getCalendar();
       setDate();
+      getWeekSummary();
+      getStats();
     };
   });

@@ -7,23 +7,27 @@ angular.module('logrunsApp')
       templateUrl: '../../views/templates/toolbar-template.html',
       controller: function($scope, $document, user) {
         $scope.items = [];
-        user.getUser({
-          success: function(data) {
-            $scope.href = '';
-            $scope.displayName = data.local.username;
-            $scope.items = [{
-              text: 'Notifications',
-              href: '#/notifications'
+        var init = function() {
+          user.getUser({
+            success: function(data) {
+              $scope.href = '';
+              $scope.displayName = data.local.username;
+              $scope.items = [{
+                text: 'Notifications',
+                href: '#/notifications'
+              },
+              {
+                text: 'Logout',
+                href: '#/logout'
+              }];
             },
-            {
-              text: 'Logout',
-              href: '#/logout'
-            }];
-          },
-          error: function() {
-          }
-        });
+            error: function() {
+              $scope.items = [];
+            }
+          });
+        };
 
+        $scope.$on('$routeChangeSuccess', init);
       }
     };
   });

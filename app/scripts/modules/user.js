@@ -122,6 +122,18 @@ angular.module('logrunsApp')
 
     };
 
+    var getStats = function(obj) {
+      $http({
+        method: 'GET',
+        url: urlRoot + '/stats',
+        params: {
+          username: obj.username
+        }
+      }).success(function(data) {
+        obj.success(data);
+      });
+    };
+
     var postEntry = function(obj) {
 
       $http({
@@ -180,7 +192,8 @@ angular.module('logrunsApp')
       postEntry: postEntry,
       getEntry: getEntry,
       getComments: getComments,
-      postComment: postComment
+      postComment: postComment,
+      getStats: getStats
 
     };
 

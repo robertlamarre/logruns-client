@@ -103,6 +103,7 @@ input:focus, textarea:focus {
 
 .toolbarItem {
   padding: 10px;
+  height: 100%;
   float: left;
   color: white;
   text-decoration: none;

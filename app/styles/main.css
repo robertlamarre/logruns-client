@@ -359,8 +359,7 @@ input.ng-valid:not(.ng-pristine) {
 }
 
 .dropdown-toggle {
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding: 10px;
 }
 
 .dropdown-menu {

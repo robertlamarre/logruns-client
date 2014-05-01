@@ -24,7 +24,7 @@ angular.module('logrunsApp')
     });
 
     $scope.getDate = function(date) {
-      return moment(date).format('MMM DD, YYYY HH:MM');
+      return moment(date).format('MMM DD, YYYY h:mm a');
     };
 
   });

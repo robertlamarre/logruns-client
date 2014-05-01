@@ -6,7 +6,7 @@ angular.module('logrunsApp')
     var cache = {};
 
     var noop = function(){};
-    var urlRoot = 'http://mysterious-ravine-3794.herokuapp.com';
+    var urlRoot = 'http://localhost:8080' || 'http://mysterious-ravine-3794.herokuapp.com';
 
     var signup = function(obj) {
 

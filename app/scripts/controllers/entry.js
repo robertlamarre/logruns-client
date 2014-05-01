@@ -12,15 +12,6 @@ angular.module('logrunsApp')
       }
     });
 
-    var getComments = function() {
-      user.getComments({
-        entryId: $scope.entries[0]._id,
-        success: function(data) {
-          $scope.comments = data;
-        }
-      });
-    };
-
     $scope.newcomment = {
       message: ''
     };
@@ -28,9 +19,7 @@ angular.module('logrunsApp')
     user.getEntry({
       id: $routeParams.id,
       success: function(data) {
-        $scope.entries = data;
-        getComments();
-        $scope.newcomment.entryId = $scope.entries[0]._id;
+        $scope.entry = data;
       }
     });
 
@@ -41,9 +30,12 @@ angular.module('logrunsApp')
 
     $scope.postComment = function() {
       console.log('message', $scope.newcomment.message);
+      $scope.newcomment.username = $scope.username;
+      $scope.newcomment.date = moment();
 
       user.postComment({
         comment: $scope.newcomment,
+        entryId: $scope.entry._id,
         success: function(data) {
           console.log(data);
           $route.reload();

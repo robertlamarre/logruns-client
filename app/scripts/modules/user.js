@@ -176,7 +176,10 @@ angular.module('logrunsApp')
       $http({
         method: 'POST',
         url: urlRoot + '/comment',
-        data: obj.comment,
+        data: {
+          comment: obj.comment,
+          entryId: obj.entryId
+        },
         withCredentials: true
       }).success(obj.success);
     };

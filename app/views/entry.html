@@ -1,4 +1,4 @@
-<div class="entry" ng-repeat="entry in entries">
+<div class="entry">
 <div class="entryHeader">{{formatDate(entry.date)}}</div>
 <div class="entryBody">
 <div class="entryField"><span class="bold">Distance:</span> {{entry.distance}} miles</div>
@@ -11,8 +11,8 @@
 <div class="entry">
 <div class="commentHeader">Comments</div>
 <div class="entryBody">
-<div class="entryField" ng-repeat="comment in comments">
-<div><span class="bold">{{comment.commenter}}:</span> {{comment.message}}</div>
+<div class="entryField" ng-repeat="comment in entry.comments">
+<div><span class="bold">{{comment.username}}:</span> {{comment.message}}</div>
 </div>
 </div>
 <div class="commentSubmit">
@@ -21,5 +21,3 @@
 <button class="coolGradient" ng-click="postComment()">post</button>
 </div>
 </div>
-
-

@@ -1,7 +1,8 @@
 <div class="toolbar coolGradient">
 <a href="/" class="toolbarItem title">LogRuns</a>
-<a href="#/u/{{displayName}}" class="toolbarItem title">calendar</a>
-<a href="#/users" class="toolbarItem title">users</a>
+<a ng-show="loggedIn" href="#/u/{{displayName}}" class="toolbarItem title">Calendar</a>
+<a ng-show="loggedIn" href="#/u/{{displayName}}/statistics" class="toolbarItem title">Statistics</a>
+<a href="#/users" class="toolbarItem title">Users</a>
 <a href="#/login" ng-show="items.length == 0" class="toolbarItem accountInfo">Login</a>
 <div ng-show="items.length > 0" class="toolbarItem dropdown accountInfo">
   <a class="dropdown-toggle">

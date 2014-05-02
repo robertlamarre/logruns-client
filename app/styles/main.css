@@ -86,11 +86,15 @@ div.entry.dialog {
   width: 300px;
 }
 
-.login .entryField {
+.login .entryField, .logEntry .entryField {
   height: 50px;
 }
 
-.entryField input {
+.entryField.notes {
+  height: 100%;
+}
+
+.entryField input, .entryField select, .quickdate {
   float: right;
 }
 
@@ -148,7 +152,7 @@ div.toolbarItem a, a.toolbarItem, a.toolbarItem:visited, div.toolbarItem a:visit
 
 .totals div {
   width: 112px;
-  height: 105px;
+  height: 90px;
   border-width: 0px 1px 1px 0px;
   border-style: solid;
   border-color: #ddd;
@@ -160,11 +164,11 @@ div.toolbarItem a, a.toolbarItem, a.toolbarItem:visited, div.toolbarItem a:visit
 
 .totals div:first-child {
   border-top-width: 1px;
-  height: 106px;
+  height: 91px;
 }
 
 .totals div:last-child {
-  height: 104px;
+  height: 89px;
 }
 
 .calendar {
@@ -182,7 +186,7 @@ div.toolbarItem a, a.toolbarItem, a.toolbarItem:visited, div.toolbarItem a:visit
 .day {
   float: left;
   width: 112px;
-  height: 105px;
+  height: 90px;
   border-width: 1px 0px 0px 1px;
   border-style: solid;
   border-color: #ddd;
@@ -446,8 +450,8 @@ a, a:visited {
 }
 
 .stats {
-  width: 220px;
-  height: 60px;
+  width: 200px;
+  height: 70px;
   margin: auto;
   margin-bottom: 5px;
   padding: 10px;

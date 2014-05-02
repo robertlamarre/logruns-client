@@ -7,11 +7,13 @@ angular.module('logrunsApp')
       templateUrl: '../../views/templates/toolbar-template.html',
       controller: function($scope, $document, user) {
         $scope.items = [];
+        $scope.loggedIn = false;
         var init = function() {
           user.getUser({
             success: function(data) {
               $scope.href = '';
               $scope.displayName = data.local.username;
+              $scope.loggedIn = true;
               $scope.items = [{
                 text: 'Notifications',
                 href: '#/notifications'
@@ -23,6 +25,7 @@ angular.module('logrunsApp')
             },
             error: function() {
               $scope.items = [];
+              $scope.loggedIn = false;
             }
           });
         };

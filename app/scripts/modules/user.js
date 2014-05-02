@@ -122,6 +122,18 @@ angular.module('logrunsApp')
 
     };
 
+    var getStreak = function(obj) {
+      $http({
+        method: 'GET',
+        url: urlRoot + '/streak',
+        params: {
+          username: obj.username
+        }
+      }).success(function(data) {
+        obj.success(data);
+      });
+    };
+
     var getStats = function(obj) {
       $http({
         method: 'GET',
@@ -196,7 +208,8 @@ angular.module('logrunsApp')
       getEntry: getEntry,
       getComments: getComments,
       postComment: postComment,
-      getStats: getStats
+      getStats: getStats,
+      getStreak: getStreak
 
     };
 

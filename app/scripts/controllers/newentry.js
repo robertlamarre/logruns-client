@@ -1,8 +1,13 @@
 'use strict';
 
 angular.module('logrunsApp')
-  .controller('NewEntryCtrl', function ($scope, $location, user, time) {
-    $scope.entry = {};
+  .controller('NewEntryCtrl', function ($scope, $location, $routeParams, user, time) {
+
+    $scope.value = new Date(2013, 9, 22);
+    $scope.entry = {
+      type: 'Easy',
+      date: $routeParams.date || new Date()
+    };
 
     user.getUser({
       success: function(data) {

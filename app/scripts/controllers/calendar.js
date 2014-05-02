@@ -107,7 +107,17 @@ angular.module('logrunsApp')
           $scope.stats = data;
         }
       });
+
+      user.getStreak({
+        username: $scope.username,
+        success: function(data) {
+          console.log('STATS', data);
+          $scope.streak = data;
+        }
+      });
     };
+
+
 
     getCalendar();
     getStats();

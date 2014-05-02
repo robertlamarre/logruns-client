@@ -6,6 +6,7 @@
 </div>
 
 <div class="stats">
+<div><div class="label">Streak:</div><div class="stat">{{streak}} days</div></div><br>
 <div><div class="label">Last 7 Days:</div><div class="stat">{{stats.rolling7}} miles</div></div>
 <div><div class="label">Last 30 Days: </div><div class="stat">{{stats.rolling30}} miles</div></div>
 </div>
@@ -23,7 +24,7 @@
 </div>
 <div class="calendar">
 <div class="day {{dateObj.style}}" ng-repeat="dateObj in days track by $index">
-<a href="#/entry">{{dateObj.day}}</a>
+<a href="#/newentry/{{dateObj.date}}">{{dateObj.day}}</a>
 <div class="calendarEntry" ng-repeat="entry in entryMap[dateObj.date]">
 <a href="#/entry/{{entry._id}}">{{entry.distance}} miles</a>
 </div>

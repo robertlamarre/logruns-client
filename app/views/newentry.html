@@ -1,9 +1,22 @@
 <div class="entry logEntry">
 <div class="entryHeader">New Log Entry</div>
+<form>
 <div class="entryBody">
 <div class="entryField">
 <label>Date:</label>
-<input ng-model="entry.date" class="formInput" type="date" required/>
+<quick-datepicker ng-model="entry.date" label-format='EEEE, MMMM d, yyyy' required class="formInput"></quick-datepicker>
+
+</div>
+<div class="entryField">
+<label>Type:</label>
+<select ng-model="entry.type">
+<option>Easy</option>
+<option>Tempo</option>
+<option>Interval</option>
+<option>Long</option>
+<option>Fartlek</option>
+<option>Recovery</option>
+</select>
 </div>
 <div class="entryField">
 <label>Distance:</label>
@@ -14,10 +27,11 @@
 <input ng-pattern="/^([\d]*)([\:]?[0-9]{2}){0,2}$/" placeholder="HH:mm:ss" ng-model="entry.duration" type="text" required/>
 <span>{{getPace()}}</span>
 </div>
-<div class="entryField">
+<div class="entryField notes">
 <label>Notes:</label>
 <textarea class="notes" ng-model="entry.notes"></textarea>
 </div class="entryField">
 </div>
 <button class="submit coolGradient" ng-click="submit()">submit</button>
 </div>
+</form>

@@ -5,6 +5,7 @@ angular.module('logrunsApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
+  'ngQuickDate'
 ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -24,7 +25,7 @@ angular.module('logrunsApp', [
         templateUrl: 'views/signup.html',
         controller: 'SignupCtrl'
       })
-      .when('/entry', {
+      .when('/newentry/:date?', {
         templateUrl: 'views/newentry.html',
         controller: 'NewEntryCtrl'
       })
@@ -43,6 +44,10 @@ angular.module('logrunsApp', [
       .when('/notifications', {
         templateUrl: 'views/notifications.html',
         controller: 'NotificationsCtrl'
+      })
+      .when('/u/:username/statistics', {
+        templateUrl: 'views/statistics.html',
+        controller: 'StatisticsCtrl'
       })
       .otherwise({
         redirectTo: '/'

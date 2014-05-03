@@ -6,7 +6,7 @@ angular.module('logrunsApp')
     var cache = {};
 
     var noop = function(){};
-    var urlRoot = 'http://localhost:8080' || 'http://mysterious-ravine-3794.herokuapp.com';
+    var urlRoot = 'http://mysterious-ravine-3794.herokuapp.com';
 
     var signup = function(obj) {
 
@@ -146,6 +146,19 @@ angular.module('logrunsApp')
       });
     };
 
+    var getEntriesByIds = function(obj) {
+      $http({
+        method: 'POST',
+        url: urlRoot + '/entriesByIds',
+        data: {
+          ids: obj.ids
+        },
+        withCredentials: true
+      }).success(function(data) {
+        obj.success(data);
+      });
+    };
+
     var postEntry = function(obj) {
 
       $http({
@@ -204,6 +217,7 @@ angular.module('logrunsApp')
       getUser: getUser,
       getUsers: getUsers,
       getEntries: getEntries,
+      getEntriesByIds: getEntriesByIds,
       postEntry: postEntry,
       getEntry: getEntry,
       getComments: getComments,

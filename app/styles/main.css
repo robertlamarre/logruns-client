@@ -386,10 +386,15 @@ hr {
 .accountInfo {
   float: right;
   cursor: pointer;
+  color: white;
 }
 
 .dropdown-toggle:focus {
   outline: 0;
+}
+
+.dropdown-toggle > * {
+  float: left;
 }
 
 .caret {
@@ -399,8 +404,9 @@ hr {
   border-right: 5px solid transparent;
   border-top: 5px solid white;
   display: inline-block;
+  margin-top: 8px;
   margin-bottom: 2px;
-  margin-left: 2px;
+  margin-left: 10px;
   margin-right: 3px;
 }
 
@@ -408,12 +414,20 @@ hr {
   position: relative;
 }
 
-.dropdown:not(.open) .dropdown-menu {
-  display:none;
+.accountName {
+  margin-top: 2px;
+  margin-right: 10px;
+  font-weight: bold;
 }
 
-.dropdown-toggle {
-  padding: 10px;
+.notificationCount {
+  background-color: red;
+  border-radius: 5px;
+  padding: 2px;
+}
+
+.dropdown:not(.open) .dropdown-menu {
+  display:none;
 }
 
 .dropdown-menu {

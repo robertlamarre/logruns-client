@@ -12,7 +12,7 @@ angular.module('logrunsApp')
           user.getUser({
             success: function(data) {
               $scope.href = '';
-              $scope.displayName = data.local.username;
+              $scope.user = data;
               $scope.loggedIn = true;
               $scope.items = [{
                 text: 'Notifications',

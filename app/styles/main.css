@@ -406,7 +406,6 @@ hr {
   display: inline-block;
   margin-top: 8px;
   margin-bottom: 2px;
-  margin-left: 10px;
   margin-right: 3px;
 }
 
@@ -424,6 +423,7 @@ hr {
   background-color: red;
   border-radius: 5px;
   padding: 2px;
+  margin-right: 10px;
 }
 
 .dropdown:not(.open) .dropdown-menu {
@@ -447,7 +447,11 @@ hr {
 
 .dropdown-menu li {
   display: block;
-  padding: 3px 20px;
+}
+
+.dropdown-option {
+  display: block;
+  padding: 5px 20px 5px 20px;
 }
 
 ul.dropdown-menu li a, ul.dropdown-menu li a:visited {

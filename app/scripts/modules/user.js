@@ -71,8 +71,8 @@ angular.module('logrunsApp')
 
       var success = obj.success || noop;
       var error = obj.error || noop;
-
-      if (cache.user) {
+      obj.cache = typeof obj.cache === 'undefined' ? true : obj.cache;
+      if (obj.cache && cache.user) {
         success(cache.user);
         return;
       }

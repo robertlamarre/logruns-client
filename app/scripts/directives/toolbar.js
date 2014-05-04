@@ -9,7 +9,9 @@ angular.module('logrunsApp')
         $scope.items = [];
         $scope.loggedIn = false;
         var init = function() {
+          console.log('init');
           user.getUser({
+            cache: false,
             success: function(data) {
               $scope.href = '';
               $scope.user = data;

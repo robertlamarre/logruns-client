@@ -41,6 +41,10 @@ angular.module('logrunsApp', [
         templateUrl: 'views/logout.html',
         controller: 'LogoutCtrl'
       })
+      .when('/account', {
+        templateUrl: 'views/account.html',
+        controller: 'AccountCtrl'
+      })
       .when('/notifications', {
         templateUrl: 'views/notifications.html',
         controller: 'NotificationsCtrl'

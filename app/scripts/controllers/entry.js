@@ -24,7 +24,7 @@ angular.module('logrunsApp')
     });
 
     $scope.formatDate = function(date) {
-      return moment(date).format('MMMM DD, YYYY');
+      return moment(date).zone(0).format('MMMM DD, YYYY');
     };
 
 

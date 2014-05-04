@@ -3,7 +3,9 @@
 angular.module('logrunsApp')
   .factory('user', function($http) {
 
-    var cache = {};
+    var cache = {
+      pictures: {}
+    };
 
     var noop = function(){};
     var urlRoot = 'http://mysterious-ravine-3794.herokuapp.com';
@@ -84,6 +86,29 @@ angular.module('logrunsApp')
       }).success(function(data) {
         cache.user = data.user;
         success(cache.user);
+      }).error(error);
+
+    };
+
+    var getPicture = function(obj) {
+      var success = obj.success || noop;
+      var error = obj.error || noop;
+
+      if (!obj.id) {
+        error();
+        return;
+      }
+      if (cache.pictures[obj.id]) {
+        obj.success(cache.pictures[obj.id]);
+        return;
+      }
+
+      $http({
+        method: 'GET',
+        url: urlRoot + '/pictures/' + obj.id
+      }).success(function(data) {
+        success(data);
+        console.log('SUCCESS!');
       }).error(error);
 
     };
@@ -215,6 +240,7 @@ angular.module('logrunsApp')
       login: login,
       logout: logout,
       getUser: getUser,
+      getPicture: getPicture,
       getUsers: getUsers,
       getEntries: getEntries,
       getEntriesByIds: getEntriesByIds,

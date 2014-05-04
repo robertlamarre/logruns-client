@@ -4,7 +4,6 @@ angular.module('logrunsApp')
   .controller('HomeCtrl', function ($scope, $route, user) {
 
     $scope.date = moment();
-    $scope.newComment = {};
 
     user.getUsers({
       success: function(data) {
@@ -18,32 +17,6 @@ angular.module('logrunsApp')
       }
     });
 
-    $scope.postComment = function(entryId) {
-
-      var newcomment = {
-        username: $scope.user.local.username,
-        message: $scope.newComment[entryId],
-        date: moment()
-      };
-
-      user.postComment({
-        comment: newcomment,
-        entryId: entryId,
-        success: function(data) {
-          console.log(data);
-          $scope.newComment[entryId] = '';
-          $scope.entries.every(function(ent) {
-            if (ent._id === entryId) {
-              ent.comments.push(newcomment);
-              return false;
-            }
-            return true;
-          });
-        }
-      });
-
-    };
-
     user.getEntries({
       startDate: $scope.date.startOf('month').toISOString(),
       endDate: $scope.date.endOf('month').toISOString(),
@@ -54,9 +27,5 @@ angular.module('logrunsApp')
         console.log(error);
       }
     });
-
-    $scope.getDate = function(date) {
-      return moment(date).format('MMM DD, YYYY h:mm a');
-    };
 
   });

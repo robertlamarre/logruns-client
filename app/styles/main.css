@@ -1,7 +1,7 @@
 * {
   box-sizing: border-box;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 body {
@@ -145,9 +145,7 @@ div.toolbarItem a, a.toolbarItem, a.toolbarItem:visited, div.toolbarItem a:visit
 }
 
 .coolGradient {
-  background-color: #6f5499;
-  background-image: -webkit-linear-gradient(top,#563d7c 0,#6f5499 100%);
-  background-image: linear-gradient(to bottom,#563d7c 0,#6f5499 100%);
+  background-color: #000;
 }
 
 .toolbar .account {
@@ -293,13 +291,12 @@ input.ng-invalid:not(.ng-pristine) {
   margin-bottom: 20px;
   margin-left: auto;
   margin-right: auto;
-  font-size: 14px;
 }
 
 .entryHeader {
   background-color: #f5f5f5;
   border: 1px solid #ddd;
-  font-size: 30px;
+  font-size: 20px;
   font-weight: bold;
 }
 

@@ -13,7 +13,7 @@ angular.module('logrunsApp')
         ids: entryIds,
         success: function(data) {
           console.log(data);
-          $scope.entries = data;
+          $scope.entries = data.reverse();
         }
       });
     };

@@ -12,6 +12,8 @@ ran
 <div class="blockquote">{{entry.notes}}</div>
 <div class="comments" ng-show="entry.comments.length > 0">
 <div class="comment" ng-repeat="comment in entry.comments">
+<img class="profilePicture" ng-src="http://mysterious-ravine-3794.herokuapp.com/pictures/{{comment.username}}">
+
 <div><a href="#/u/{{comment.username}}">{{comment.username}}:</a> {{comment.message}}</div>
 <div class="datestamp">{{getDateTime(comment.date)}}</div>
 </div>

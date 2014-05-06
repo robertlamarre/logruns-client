@@ -56,4 +56,5 @@ angular.module('logrunsApp', [
       .otherwise({
         redirectTo: '/'
       });
+
   });

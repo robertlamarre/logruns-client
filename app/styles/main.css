@@ -503,3 +503,8 @@ a, a:visited {
 .stats .stat {
   float: right;
 }
+
+.drop {
+  border: 2px #f1f1f1 dashed;
+  display: block;
+}

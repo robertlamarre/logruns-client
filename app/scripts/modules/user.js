@@ -113,6 +113,19 @@ angular.module('logrunsApp')
 
     };
 
+    var setPicture = function(obj) {
+      $http({
+        method: 'POST',
+        url: urlRoot + '/picture',
+        data: {
+          picture: obj.picture
+        },
+        withCredentials: true
+      }).success(function() {
+        obj.success();
+      });
+    };
+
     var getUsers = function(obj) {
 
       if (cache.users) {
@@ -249,7 +262,8 @@ angular.module('logrunsApp')
       getComments: getComments,
       postComment: postComment,
       getStats: getStats,
-      getStreak: getStreak
+      getStreak: getStreak,
+      setPicture: setPicture
 
     };
 

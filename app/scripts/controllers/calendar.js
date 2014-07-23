@@ -7,7 +7,7 @@ angular.module('logrunsApp')
     $scope.username = $routeParams.username;
     $scope.days = [];
     $scope.entryMap = {};
-    console.log('User: ', $routeParams.username);
+
 
     var createEntryMap = function(entries) {
       var entryMap = {};
@@ -20,7 +20,6 @@ angular.module('logrunsApp')
         }
       });
       $scope.entryMap = entryMap;
-      console.log(entryMap);
     };
 
     var getEntries = $scope.getEntries = function() {
@@ -95,7 +94,6 @@ angular.module('logrunsApp')
         }
       }
       $scope.summary = summary;
-      console.log('SUMMARY', summary);
 
     };
 
@@ -103,7 +101,6 @@ angular.module('logrunsApp')
       user.getStats({
         username: $scope.username,
         success: function(data) {
-          console.log('STATS', data);
           $scope.stats = data;
         }
       });
@@ -111,7 +108,6 @@ angular.module('logrunsApp')
       user.getStreak({
         username: $scope.username,
         success: function(data) {
-          console.log('STATS', data);
           $scope.streak = data;
         }
       });
@@ -126,6 +122,7 @@ angular.module('logrunsApp')
       $scope.date.subtract('months', 1);
       getCalendar();
       setDate();
+      getEntries();
       getWeekSummary();
       getStats();
     };
@@ -134,6 +131,7 @@ angular.module('logrunsApp')
       $scope.date.add('months', 1);
       getCalendar();
       setDate();
+      getEntries();
       getWeekSummary();
       getStats();
     };

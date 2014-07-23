@@ -58,7 +58,7 @@ angular.module('logrunsApp')
       }
       canvas.width = width;
       canvas.height = height;
-      ctx.drawImage(img, 0, 0, width, height);
+      ctx.drawImage(img, 0, 0, 40, 40);
 
       var dataurl = canvas.toDataURL('image/png');
       dataurl = dataurl.replace('data:image/png;base64,', '');

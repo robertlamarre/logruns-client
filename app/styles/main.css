@@ -14,7 +14,7 @@ body {
 .container {
   position: absolute;
   width: 100%;
-  top: 40px;
+  top: 60px;
   bottom: 0px;
   padding: 0px;
   overflow: auto;
@@ -111,28 +111,31 @@ input:focus, textarea:focus {
 }
 
 .toolbar {
-  height: 40px;
+  height: 50px;
   width: 100%;
   position: fixed;
   top: 0px;
-  -box-shadow: 0 2px 2px -2px rgba(0, 0, 0, .52);
-  -moz-box-shadow: 0 2px 2px -2px rgba(0, 0, 0, .52);
-  -webkit-box-shadow: 0 2px 2px -2px rgba(0, 0, 0, .52);
+  background-color: #222;
 }
 
 .toolbarPlaceholder {
-  height: 40px;
+  height: 50px;
   width: 100%;
 }
 
 .toolbarItem {
-  padding: 10px;
+  padding: 14px;
   height: 100%;
   float: left;
   text-decoration: none;
 }
 
 div.toolbarItem a, a.toolbarItem, a.toolbarItem:visited, div.toolbarItem a:visited {
+  color: #999;
+  font-size: 14px;
+}
+
+div.toolbarItem a:hover, a.toolbarItem:hover, a.toolbarItem:visited:hover, div.toolbarItem a:visited:hover {
   color: white;
 }
 
@@ -506,11 +509,11 @@ a, a:visited {
 }
 
 input.search {
-  border-radius: 15px;
+  border-radius: 20px;
   float: right;
   margin-right: 20px;
-  width: 300px;
-  margin-top: 7px;
+  width: 250px;
+  margin-top: 10px;
   padding-left: 10px;
-  height: 25px;
+  height: 30px;
 }

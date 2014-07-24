@@ -2,7 +2,8 @@
 
 angular.module('logrunsApp')
   .controller('SearchCtrl', function ($scope, $routeParams, user) {
-    console.log($routeParams);
+    $scope.text = $routeParams.text;
+
     user.searchEntriesForText({
       text: $routeParams.text,
       success: function(data) {

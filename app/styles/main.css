@@ -517,8 +517,9 @@ input.search {
   border-radius: 20px;
   float: right;
   margin-right: 20px;
-  width: 250px;
+  width: 15vw;
   margin-top: 10px;
   padding-left: 10px;
   height: 30px;
+  display: inline;
 }

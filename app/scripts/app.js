@@ -53,6 +53,10 @@ angular.module('logrunsApp', [
         templateUrl: 'views/statistics.html',
         controller: 'StatisticsCtrl'
       })
+      .when('/search/:text', {
+        templateUrl: 'views/search.html',
+        controller: 'SearchCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

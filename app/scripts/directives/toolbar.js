@@ -5,11 +5,13 @@ angular.module('logrunsApp')
     return {
       restrict: 'E',
       templateUrl: '../../views/templates/toolbar-template.html',
-      controller: function($scope, $document, user) {
+      controller: function($scope, $document, $location, user) {
         $scope.items = [];
         $scope.loggedIn = false;
+        $scope.search = function() {
+          $location.path('/search/' + $scope.textSearch);
+        };
         var init = function() {
-          console.log('init');
           user.getUser({
             cache: false,
             success: function(data) {

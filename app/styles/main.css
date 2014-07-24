@@ -504,3 +504,13 @@ a, a:visited {
   border: 2px #f1f1f1 dashed;
   display: block;
 }
+
+input.search {
+  border-radius: 15px;
+  float: right;
+  margin-right: 20px;
+  width: 300px;
+  margin-top: 7px;
+  padding-left: 10px;
+  height: 25px;
+}

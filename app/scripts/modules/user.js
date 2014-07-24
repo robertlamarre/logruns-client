@@ -160,6 +160,18 @@ angular.module('logrunsApp')
 
     };
 
+    var searchEntriesForText = function(obj) {
+      $http({
+        method: 'GET',
+        url: urlRoot + '/search',
+        params: {
+          text: obj.text
+        }
+      }).success(function(data) {
+        obj.success(data);
+      });
+    };
+
     var getStreak = function(obj) {
       $http({
         method: 'GET',
@@ -263,7 +275,8 @@ angular.module('logrunsApp')
       postComment: postComment,
       getStats: getStats,
       getStreak: getStreak,
-      setPicture: setPicture
+      setPicture: setPicture,
+      searchEntriesForText: searchEntriesForText
 
     };
 

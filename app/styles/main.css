@@ -11,10 +11,15 @@ body {
   overflow: hidden;
 }
 
+span.hit {
+  font-weight: bold;
+  background-color: yellow;
+}
+
 .container {
   position: absolute;
   width: 100%;
-  top: 60px;
+  top: 50px;
   bottom: 0px;
   padding: 0px;
   overflow: auto;

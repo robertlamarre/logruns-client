@@ -3,7 +3,6 @@
 <a ng-show="loggedIn" href="#/u/{{user.local.username}}" class="toolbarItem title">Calendar</a>
 <a href="#/users" class="toolbarItem title">Users</a>
 <a href="#/login" ng-show="items.length == 0" class="toolbarItem accountInfo">Login</a>
-<input type="text" ng-model="textSearch" class="search" ng-enter="search()" placeholder="Search Entries..."/>
 <div ng-show="items.length > 0" class="toolbarItem dropdown accountInfo">
   <div class="dropdown-toggle">
     <div class="accountName">
@@ -27,5 +26,6 @@
     </li>
   </ul>
 </div>
+<input type="text" ng-model="textSearch" class="search" ng-enter="search()" placeholder="Search Entries..."/>
 </div>
 <div class="toolbarPlaceholder"></div>

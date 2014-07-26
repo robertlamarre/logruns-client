@@ -150,7 +150,7 @@ angular.module('logrunsApp')
         .tickSize(0)
         .tickPadding(0);
 
-        window.a = x;
+      var barWidth = width / 95;
 
       var yAxis = d3.svg.axis()
         .scale(y)
@@ -170,14 +170,14 @@ angular.module('logrunsApp')
         .attr('class', 'bar')
         .attr('x', function(d) { return x(new Date(d.date)); })
         .attr('y', height - margin.bottom - margin.top)
-        .attr('width', 10)
+        .attr('width', barWidth)
         .attr('height', 0)
         .transition()
         .duration(500)
-        .ease('linear')
+        .ease('bounce')
         .attr('y', function(d) { return height - margin.top - margin.bottom - (height - margin.top - margin.bottom - y(d.distance)) })
         .attr('height', function(d) { return height - margin.top - margin.bottom - y(d.distance) })
-        .ease('exp');
+
 
       svg.append('g')
         .attr('class', 'x axis')

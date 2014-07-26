@@ -10,6 +10,10 @@ angular.module('logrunsApp')
     var noop = function(){};
     var urlRoot = 'http://mysterious-ravine-3794.herokuapp.com';
 
+    var getUrlRoot = function() {
+      return urlRoot;
+    };
+
     var signup = function(obj) {
 
       var success = obj.success || noop;
@@ -88,6 +92,24 @@ angular.module('logrunsApp')
         success(cache.user);
       }).error(error);
 
+    };
+
+    var getPictureUrl = function(obj) {
+      obj.success = obj.success || noop;
+      obj.error = obj.error || noop;
+
+      if (!obj.id) {
+        this.getUser({
+          success: function(usr) {
+            obj.success(urlRoot + '/pictures/' + usr._id);
+          },
+          error: function() {
+            obj.error();
+          }
+        });
+      } else {
+        obj.success(urlRoot + '/pictures/' + obj.id);
+      }
     };
 
     var getPicture = function(obj) {
@@ -266,6 +288,7 @@ angular.module('logrunsApp')
       logout: logout,
       getUser: getUser,
       getPicture: getPicture,
+      getPictureUrl: getPictureUrl,
       getUsers: getUsers,
       getEntries: getEntries,
       getEntriesByIds: getEntriesByIds,
@@ -276,7 +299,8 @@ angular.module('logrunsApp')
       getStats: getStats,
       getStreak: getStreak,
       setPicture: setPicture,
-      searchEntriesForText: searchEntriesForText
+      searchEntriesForText: searchEntriesForText,
+      getUrlRoot: getUrlRoot
 
     };
 

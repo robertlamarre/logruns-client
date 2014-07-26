@@ -23,6 +23,7 @@
     "moment": false,
     "_": false,
     "$": false,
-    "io": false
+    "io": false,
+    "d3": false
   }
 }

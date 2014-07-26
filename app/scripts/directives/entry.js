@@ -17,6 +17,12 @@ angular.module('logrunsApp')
           return moment(date).format('MMM DD, YYYY h:mm a');
         };
 
+        var urlRoot = user.getUrlRoot();
+        $scope.getPicUrl = function(username) {
+          console.log(urlRoot + username);
+          return urlRoot + '/pictures/' + username;
+        };
+
         $scope.postComment = function() {
 
           var newcomment = {

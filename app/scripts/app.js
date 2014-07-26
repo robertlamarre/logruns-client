@@ -14,6 +14,10 @@ angular.module('logrunsApp', [
         controller: 'HomeCtrl'
       })
       .when('/u/:username', {
+        templateUrl: 'views/profile.html',
+        controller: 'ProfileCtrl'
+      })
+      .when('/u/:username/calendar', {
         templateUrl: 'views/calendar.html',
         controller: 'CalendarCtrl'
       })

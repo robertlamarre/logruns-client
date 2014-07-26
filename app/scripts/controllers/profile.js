@@ -33,8 +33,6 @@ angular.module('logrunsApp')
       endDate: end,
       success: function(entries) {
         $scope.entries = entries;
-        console.log(entries);
-        //var data = normalizeEntries(entries);
         makeGraph(entries);
       },
       error: function(error) {
@@ -42,100 +40,23 @@ angular.module('logrunsApp')
       }
     });
 
-    // var normalizeEntries = function(entries) {
-    //   var data = [];
-    //   $.each(entries, function(entry) {
-    //     var d = moment(entry.date);
-
-    //   })
-    // }
-
-
-
     var makeGraph = function(data) {
-
-      // var margin = {top: 20, right: 50, bottom: 50, left: 50};
-      // var width = $(window).width() * .8 - margin.left - margin.right;
-      // var height = $(window).height() * .5 - margin.top - margin.bottom;
-
-      // var x = d3.scale.ordinal()
-      //     .rangeRoundBands([0, width], .1);
-
-      // var y = d3.scale.linear()
-      //     .range([height, 0]);
-
-      // var xAxis = d3.svg.axis()
-      //     .scale(x)
-      //     .orient('bottom');
-
-      // var yAxis = d3.svg.axis()
-      //     .scale(y)
-      //     .orient('left')
-      //     .ticks(10);
-
-      // $('.chart').width(width);
-
-      // var svg = d3.select('.chart').append('svg')
-      //   .attr('width', width + margin.left + margin.right)
-      //   .attr('height', height + margin.top + margin.bottom)
-      //   .append('g')
-      //   .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-
-
-      // x.domain(data.map(function(d) { return moment(d.date).format('MM/DD'); }));
-      // y.domain([0, d3.max(data, function(d) { return d.distance; })]);
-
-      // svg.append('g')
-      //   .attr('class', 'x axis')
-      //   .attr('transform', 'translate(0,' + height + ')')
-      //   .call(xAxis)
-      //   .selectAll("text")
-      //   .style("text-anchor", "end")
-      //   .attr("dx", "-.8em")
-      //   .attr("dy", ".15em")
-      //   .attr("transform", function(d) {
-      //     return "rotate(-65)";
-      //   });
-
-      // svg.append('g')
-      //   .attr('class', 'y axis')
-      //   .call(yAxis)
-      //   .append('text')
-      //   .attr('transform', 'rotate(-90)')
-      //   .attr('y', 6)
-      //   .attr('dy', '.71em')
-      //   .style('text-anchor', 'end')
-      //   .text('Distance');
-
-      // svg.selectAll('.bar')
-      //   .data(data)
-      //   .enter().append('rect')
-      //   .attr('class', 'bar')
-      //   .attr('x', function(d) { return x(moment(d.date).format('MM/DD')); })
-      //   .attr('width', x.rangeBand())
-      //   .attr('y', function(d) { return y(d.distance); })
-      //   .attr('height', function(d) { return height - y(d.distance); });
-
-
-      // svg.selectAll('.barLabel')
-      //   .data(data)
-      //   .enter().append('text')
-      //   .attr('class', 'barLabel')
-      //   .attr('x', function(d) { return x(moment(d.date).format('MM/DD')) + x.rangeBand() / 2; })
-      //   .attr('y', function(d) { return y(d.distance) + 12; })
-      //   .attr('text-anchor', 'middle')
-      //   .text(function(d) { return d.distance; })
-      //   .attr('fill', 'white');
-
-
-////////////////////////////////////////////
 
       var margin = {top: 40, right: 40, bottom: 50, left:40},
       width = $(window).width() * .9,
       height = $(window).height() * .8;
 
+      var getDate = function(d) {
+        d = new Date(d);
+        d.setHours(12);
+        d.setMinutes(0);
+        d.setSeconds(0);
+        d.setMilliseconds(0);
+        return d;
+      };
+
       var x = d3.time.scale()
-        .domain([d3.min(data, function(d) { return new Date(d.date);}), d3.time.day.offset(new Date(data[data.length - 1].date), 1)])
+        .domain([d3.min(data, function(d) { return getDate(d.date);}), d3.time.day.offset(getDate(data[data.length - 1].date), 1)])
         .rangeRound([0, width - margin.left - margin.right]);
 
       var y = d3.scale.linear()
@@ -168,7 +89,7 @@ angular.module('logrunsApp')
         .data(data)
         .enter().append('rect')
         .attr('class', 'bar')
-        .attr('x', function(d) { return x(new Date(d.date)); })
+        .attr('x', function(d) { return x(getDate(d.date)); })
         .attr('y', height - margin.bottom - margin.top)
         .attr('width', barWidth)
         .attr('height', 0)
@@ -191,6 +112,16 @@ angular.module('logrunsApp')
           return "rotate(-90)";
         });
 
+      svg.selectAll('.barLabel')
+        .data(data)
+        .enter().append('text')
+        .attr('class', 'barLabel')
+        .attr('x', function(d) { return x(getDate(d.date)) + barWidth / 2})
+        .attr('y', function(d) { return y(d.distance) + 12; })
+        .attr('text-anchor', 'middle')
+        .text(function(d) { return d.distance; })
+        .attr('fill', 'white');
+
 
 
 
@@ -198,6 +129,11 @@ angular.module('logrunsApp')
         .attr('class', 'y axis')
         .call(yAxis);
     };
+
+    $(window).on("resize", function() {
+      $('svg.chart').remove();
+      makeGraph($scope.entries);
+    });
 
 
   });

@@ -148,6 +148,7 @@ input:focus, textarea:focus {
 
 .chart {
   margin: auto;
+  display: block;
 }
 
 .barLabel {
@@ -535,7 +536,7 @@ a, a:visited {
   margin: auto;
 }
 
-.pull-left, svg {
+.pull-left {
   float: left;
 }
 

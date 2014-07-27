@@ -577,6 +577,7 @@ input.search {
 
 .bar {
   fill: steelblue;
+  cursor: pointer;
 }
 
 .bar:hover {

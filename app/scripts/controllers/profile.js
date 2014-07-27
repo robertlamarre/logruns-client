@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('logrunsApp')
-  .controller('ProfileCtrl', function ($scope, $routeParams, user) {
+  .controller('ProfileCtrl', function ($scope, $routeParams, $location, $rootScope, user) {
 
     var username = $routeParams.username;
 
@@ -43,8 +43,8 @@ angular.module('logrunsApp')
     var makeGraph = function(data) {
 
       var margin = {top: 40, right: 40, bottom: 50, left:40},
-      width = $(window).width() * .9,
-      height = $(window).height() * .8;
+      width = $(window).width() * 0.9,
+      height = $(window).height() * 0.8;
 
       var getDate = function(d) {
         d = new Date(d);
@@ -93,30 +93,37 @@ angular.module('logrunsApp')
         .attr('y', height - margin.bottom - margin.top)
         .attr('width', barWidth)
         .attr('height', 0)
+        .on('click', function(d) {
+          console.log(d._id);
+          $rootScope.$apply(function() {
+            $location.path('/entry/' + d._id);
+          });
+        })
         .transition()
         .duration(500)
         .ease('bounce')
-        .attr('y', function(d) { return height - margin.top - margin.bottom - (height - margin.top - margin.bottom - y(d.distance)) })
-        .attr('height', function(d) { return height - margin.top - margin.bottom - y(d.distance) })
+        .attr('y', function(d) { return height - margin.top - margin.bottom - (height - margin.top - margin.bottom - y(d.distance)); })
+        .attr('height', function(d) { return height - margin.top - margin.bottom - y(d.distance); });
+
 
 
       svg.append('g')
         .attr('class', 'x axis')
         .attr('transform', 'translate(0, ' + (height - margin.top - margin.bottom) + ')')
         .call(xAxis)
-                .selectAll("text")
-        .style("text-anchor", "end")
-        .attr("dx", "-.8em")
-        .attr("dy", ".15em")
-        .attr("transform", function(d) {
-          return "rotate(-90)";
+                .selectAll('text')
+        .style('text-anchor', 'end')
+        .attr('dx', '-.8em')
+        .attr('dy', '.15em')
+        .attr('transform', function() {
+          return 'rotate(-90)';
         });
 
       svg.selectAll('.barLabel')
         .data(data)
         .enter().append('text')
         .attr('class', 'barLabel')
-        .attr('x', function(d) { return x(getDate(d.date)) + barWidth / 2})
+        .attr('x', function(d) { return x(getDate(d.date)) + barWidth / 2;})
         .attr('y', function(d) { return y(d.distance) + 12; })
         .attr('text-anchor', 'middle')
         .text(function(d) { return d.distance; })
@@ -130,7 +137,7 @@ angular.module('logrunsApp')
         .call(yAxis);
     };
 
-    $(window).on("resize", function() {
+    $(window).on('resize', function() {
       $('svg.chart').remove();
       makeGraph($scope.entries);
     });

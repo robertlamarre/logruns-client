@@ -9,7 +9,7 @@ ran
 </div>
 
 </div>
-<div class="blockquote">{{formatNotes(entry.notes)}}</div>
+<div class="blockquote" ng-bind-html="formatNotes(entry.notes)"></div>
 <div class="comments" ng-show="entry.comments.length > 0">
 <div class="comment" ng-repeat="comment in entry.comments">
 <img class="feedPicture" ng-src="{{getPicUrl(comment.username)}}"/>

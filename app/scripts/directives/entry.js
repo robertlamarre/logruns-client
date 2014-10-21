@@ -5,7 +5,7 @@ angular.module('logrunsApp')
     return {
       restrict: 'E',
       templateUrl: '../../views/templates/entry-template.html',
-      controller: function($scope, user) {
+      controller: function($scope, $sce, user) {
 
         $scope.user = $scope.$parent.user;
 
@@ -14,8 +14,8 @@ angular.module('logrunsApp')
         };
 
         $scope.formatNotes = function(notes) {
-          return notes.replace('\n', '<br/>');
-        }
+          return $sce.trustAsHtml(notes.replace(/\n/g, '<br/>'));
+        };
 
         $scope.getDateTime = function(date) {
           return moment(date).format('MMM DD, YYYY h:mm a');

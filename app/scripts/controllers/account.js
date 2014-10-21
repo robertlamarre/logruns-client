@@ -78,7 +78,8 @@ angular.module('logrunsApp')
         mi: 1
       };
 
-      return parseFloat(distance / unitMap[unit]);
+      var res = parseFloat(distance / unitMap[unit]);
+      return res.toFixed(2);
     }
 
     $scope.importRA = function() {

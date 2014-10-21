@@ -13,6 +13,10 @@ angular.module('logrunsApp')
           return moment(date).zone(0).format('MMM DD, YYYY');
         };
 
+        $scope.formatNotes = function(notes) {
+          return notes.replace('\n', '<br/>');
+        }
+
         $scope.getDateTime = function(date) {
           return moment(date).format('MMM DD, YYYY h:mm a');
         };

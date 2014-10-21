@@ -71,4 +71,56 @@ angular.module('logrunsApp')
 
     };
 
+    function convertToMiles(distance, unit) {
+      var unitMap = {
+        km: 1.609344,
+        m: 1609.344,
+        mi: 1
+      };
+
+      return parseFloat(distance / unitMap[unit]);
+    }
+
+    $scope.importRA = function() {
+
+      var reader = new FileReader();
+
+      reader.onload = function(e) {
+
+        var xmlData = $(e.target.result);
+        xmlData.find('event').each(function(idx, val) {
+
+          var distance = $(val).find('distance');
+          var unit = distance.attr('unit');
+          distance = distance.html();
+
+          if (unit !== 'mi') {
+            distance = convertToMiles(distance, unit);
+          }
+
+          if ($(val).attr('typename').toLowerCase() !== 'run') {
+            return;
+          }
+
+
+          var res = {
+            type: $(val).attr('subtypename'),
+            date: new Date($(val).attr('time')),
+            duration: $(val).find('duration').html(),
+            distance: distance,
+            notes: $(val).find('notes').html()
+          };
+
+          user.postEntry({
+            entry: res,
+            success: function() {
+              console.log('posted');
+            }
+          });
+        });
+
+      };
+      reader.readAsText($scope.raFile);
+    };
+
   });

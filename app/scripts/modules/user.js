@@ -8,7 +8,7 @@ angular.module('logrunsApp')
     };
 
     var noop = function(){};
-    var urlRoot =  'http://mysterious-ravine-3794.herokuapp.com';
+    var urlRoot = 'http://mysterious-ravine-3794.herokuapp.com';
 
     var getUrlRoot = function() {
       return urlRoot;
@@ -233,15 +233,18 @@ angular.module('logrunsApp')
 
     var postEntry = function(obj) {
 
+      var success = obj.success || noop;
+      var error = obj.error || noop;
+
       $http({
         method: 'POST',
         url: urlRoot + '/entry',
         data: obj.entry,
         withCredentials: true
       }).success(function(data) {
-        obj.success(data);
+        success(data);
       }).error(function(data) {
-        obj.error(data);
+        error(data);
       });
 
     };

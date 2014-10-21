@@ -56,8 +56,10 @@ angular.module('logrunsApp')
       };
 
       var x = d3.time.scale()
-        .domain([d3.min(data, function(d) { return getDate(d.date);}), d3.time.day.offset(getDate(data[data.length - 1].date), 1)])
-        .rangeRound([0, width - margin.left - margin.right]);
+        .domain(d3.extent(data, function(d) {
+          return getDate(d.date);
+        }))
+        .range([0, width - margin.left - margin.right]);
 
       var y = d3.scale.linear()
         .domain([0, d3.max(data, function(d) { return d.distance; })])
@@ -71,7 +73,7 @@ angular.module('logrunsApp')
         .tickSize(0)
         .tickPadding(0);
 
-      var barWidth = width / 95;
+      var barWidth = width / 91 - 2;
 
       var yAxis = d3.svg.axis()
         .scale(y)
@@ -89,7 +91,7 @@ angular.module('logrunsApp')
         .data(data)
         .enter().append('rect')
         .attr('class', 'bar')
-        .attr('x', function(d) { return x(getDate(d.date)); })
+        .attr('x', function(d) { console.log(getDate(d.date));  return x(getDate(d.date)); })
         .attr('y', height - margin.bottom - margin.top)
         .attr('width', barWidth)
         .attr('height', 0)
@@ -105,11 +107,9 @@ angular.module('logrunsApp')
         .attr('y', function(d) { return height - margin.top - margin.bottom - (height - margin.top - margin.bottom - y(d.distance)); })
         .attr('height', function(d) { return height - margin.top - margin.bottom - y(d.distance); });
 
-
-
       svg.append('g')
         .attr('class', 'x axis')
-        .attr('transform', 'translate(0, ' + (height - margin.top - margin.bottom) + ')')
+        .attr('transform', 'translate(0, ' + (height - margin.top + 5 - margin.bottom) + ')')
         .call(xAxis)
                 .selectAll('text')
         .style('text-anchor', 'end')
@@ -124,6 +124,10 @@ angular.module('logrunsApp')
         .enter().append('text')
         .attr('class', 'barLabel')
         .attr('x', function(d) { return x(getDate(d.date)) + barWidth / 2;})
+        .attr('y', height)
+        .transition()
+        .duration(500)
+        .ease('bounce')
         .attr('y', function(d) { return y(d.distance) + 12; })
         .attr('text-anchor', 'middle')
         .text(function(d) { return d.distance; })

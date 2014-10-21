@@ -8,7 +8,7 @@ angular.module('logrunsApp')
     };
 
     var noop = function(){};
-    var urlRoot = 'http://localhost:8080' || 'http://mysterious-ravine-3794.herokuapp.com';
+    var urlRoot = 'http://mysterious-ravine-3794.herokuapp.com';
 
     var getUrlRoot = function() {
       return urlRoot;

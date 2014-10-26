@@ -1,3 +1,11 @@
+## Notice:
+
+Sorry for the lack of updates lately. After using this directive in my own app, I realized it was lacking in a few fundamental ways, so I started on a new datepicker that is different enough that it called for a completely separate repo. I should have something up on Github soon.
+
+In the meantime, if someone would like to help maintain this project, please let me know.
+
+---
+
 # ngQuickDate
 
 ngQuickDate is an [Angular.js](http://angularjs.org/) Date/Time picker directive. It stresses speed of data entry and simplicity while being highly configurable and easy to re-style.
@@ -6,8 +14,7 @@ ngQuickDate is an [Angular.js](http://angularjs.org/) Date/Time picker directive
 
 ## Download
 
-* [Version 1.2.10](https://github.com/adamalbrecht/ngQuickDate/archive/1.2.10.zip)
-* [Version 1.3.0-alpha.1](https://github.com/adamalbrecht/ngQuickDate/archive/1.3.0-alpha.1.zip)
+* [Version 1.3.3](https://github.com/adamalbrecht/ngQuickDate/archive/1.3.3.zip)
 
 * Only compatible with Angular 1.2.x. For a version compatible with Angular 1.0.x, checkout the angular-1.0 branch.
 
@@ -21,7 +28,7 @@ Or add it to your bower.json file:
 
 ```javascript
 dependencies: {
-  "ngQuickDate": "~1.2.0"
+  "ngQuickDate": "~1.3.0"
 }
 ```
 
@@ -69,7 +76,7 @@ There are a number of options that be configured inline with attributes. Here ar
 **Example:**
 
 ```html
-<quick-datepicker ng-model='myDate' date-format='EEEE, MMMM d, yyyy' placeholder='Pick a Date' disable-timepicker='true'></datepicker>
+<quick-datepicker ng-model='myDate' date-format='EEEE, MMMM d, yyyy' placeholder='Pick a Date' disable-timepicker='true'></quick-datepicker>
 ```
 
 ## Configuration Options

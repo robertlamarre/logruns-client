@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('logrunsApp')
-  .controller('EntryCtrl', function ($scope, $routeParams, $route, user, time) {
+  .controller('EntryCtrl', function ($scope, $routeParams, $route, $sce, user, time) {
 
     user.getUser({
       success: function(data) {
@@ -27,6 +27,12 @@ angular.module('logrunsApp')
       return moment(date).zone(0).format('MMMM DD, YYYY');
     };
 
+    $scope.formatNotes = function(notes) {
+      if (!notes) {
+        return;
+      }
+      return $sce.trustAsHtml(notes.replace(/\n/g, '<br/>'));
+    };
 
     $scope.postComment = function() {
       console.log('message', $scope.newcomment.message);

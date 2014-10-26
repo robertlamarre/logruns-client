@@ -14,6 +14,9 @@ angular.module('logrunsApp')
         };
 
         $scope.formatNotes = function(notes) {
+          if (!notes) {
+            return;
+          }
           return $sce.trustAsHtml(notes.replace(/\n/g, '<br/>'));
         };
 

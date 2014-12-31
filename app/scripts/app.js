@@ -61,6 +61,10 @@ angular.module('logrunsApp', [
         templateUrl: 'views/search.html',
         controller: 'SearchCtrl'
       })
+      .when('/fantasy', {
+        templateUrl: 'views/fantasy.html',
+        controller: 'FantasyCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

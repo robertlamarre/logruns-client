@@ -29,7 +29,7 @@ function (Settings) {
      *  +elasticsearch: {server: "http://localhost:9200", withCredentials: true}+
      *
      */
-    elasticsearch: "https://rowan-2412062.us-east-1.bonsai.io/",
+    elasticsearch: "https://nvbh8t0i:6j6ysua2k1yx726t@rowan-2412062.us-east-1.bonsai.io:443/",
 
     /** @scratch /configuration/config.js/5
      *

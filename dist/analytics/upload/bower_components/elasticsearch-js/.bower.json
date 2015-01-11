@@ -1,0 +1,14 @@
+{
+  "name": "elasticsearch-js",
+  "homepage": "https://github.com/elasticsearch/elasticsearch-js",
+  "version": "3.1.1",
+  "_release": "3.1.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v3.1.1",
+    "commit": "5e5b7e12ea5f13ebfa638adca80fe863ac4b8863"
+  },
+  "_source": "https://github.com/elasticsearch/elasticsearch-js.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/elasticsearch/elasticsearch-js.git"
+}

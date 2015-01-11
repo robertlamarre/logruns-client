@@ -8,7 +8,7 @@ angular.module('logrunsApp')
     };
 
     var noop = function(){};
-    var urlRoot = 'http://mysterious-ravine-3794.herokuapp.com';
+    var urlRoot = 'http://localhost:8080' || 'http://http://mysterious-ravine-3794.herokuapp.com';
 
     var getUrlRoot = function() {
       return urlRoot;
@@ -231,6 +231,18 @@ angular.module('logrunsApp')
       });
     };
 
+    var postFantasy = function(obj) {
+      var success = obj.success || noop;
+      var error = obj.error || noop;
+
+      $http({
+        method: 'POST',
+        url: urlRoot + '/fantasy',
+        data: obj.fantasy,
+        withCredentials: true
+      }).success(success).error(error);
+    };
+
     var postEntry = function(obj) {
 
       var success = obj.success || noop;
@@ -303,7 +315,8 @@ angular.module('logrunsApp')
       getStreak: getStreak,
       setPicture: setPicture,
       searchEntriesForText: searchEntriesForText,
-      getUrlRoot: getUrlRoot
+      getUrlRoot: getUrlRoot,
+      postFantasy: postFantasy
 
     };
 

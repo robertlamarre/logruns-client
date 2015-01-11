@@ -13,7 +13,7 @@
   ES.indexRuns = function(runs) {
     var name = $('#name').val();
     var body = [];
-    var actionDesc = { index:  { _index: 'runs', _type: name} };
+    var actionDesc = { index:  { _index: 'logruns', _type: name} };
 
     _.each(runs, function(run) {
       body.push(actionDesc);

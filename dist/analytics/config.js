@@ -50,7 +50,7 @@ function (Settings) {
      * The default ES index to use for storing Kibana specific object
      * such as stored dashboards
      */
-    kibana_index: "kibana-int",
+    kibana_index: "logruns",
 
     /** @scratch /configuration/config.js/5
      *

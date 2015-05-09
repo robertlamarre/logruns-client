@@ -356,22 +356,6 @@ hr {
   height: 52px;
 }
 
-.feedHeader.Easy {
-  background-color: rgba(126, 255, 157, 0.48);
-}
-
-.feedHeader.Interval {
-  background-color: rgba(255, 188, 111, 0.31);
-}
-
-.feedHeader.Long {
-  background-color: rgba(159, 164, 252, 0.51);
-}
-
-.feedHeader.Race {
-  background-color: rgba(223, 1, 1, 0.28);
-}
-
 .comments {
   border: 1px solid #ddd;
   padding-left: 10px;

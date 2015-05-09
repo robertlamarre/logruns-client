@@ -26,7 +26,6 @@ angular.module('logrunsApp')
 
         var urlRoot = user.getUrlRoot();
         $scope.getPicUrl = function(username) {
-          console.log(urlRoot + username);
           return urlRoot + '/pictures/' + username;
         };
 

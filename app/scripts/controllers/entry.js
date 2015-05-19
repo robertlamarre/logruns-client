@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('logrunsApp')
-  .controller('EntryCtrl', function ($scope, $routeParams, $route, $sce, user, time) {
+  .controller('EntryCtrl', function ($scope, $routeParams, $route, $sce, $location, user, time) {
 
     user.getUser({
       success: function(data) {
@@ -47,6 +47,27 @@ angular.module('logrunsApp')
           $route.reload();
         }
       });
+    };
+
+    $scope.submit = function() {
+      console.log($scope.entry);
+      user.updateEntry({
+        id: $routeParams.id,
+        entry: $scope.entry,
+        success: function(data) {
+          console.log(data);
+          if ($scope.user) {
+            $location.path('/u/' + $scope.user.local.username + '/calendar');
+          }
+        },
+        error: function(data) {
+          console.error('busted', data);
+        }
+      });
+    };
+
+    $scope.edit = function() {
+      $location.path( $location.path() + '/edit' );
     };
 
     $scope.getPace = function(distance, duration) {

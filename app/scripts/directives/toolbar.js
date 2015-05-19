@@ -5,19 +5,23 @@ angular.module('logrunsApp')
     return {
       restrict: 'E',
       templateUrl: '../../views/templates/toolbar-template.html',
-      controller: function($scope, $document, $location, user) {
+      controller: function($rootScope, $scope, $document, $location, user) {
         $scope.items = [];
         $scope.loggedIn = false;
+        $scope.attemptedLogin = false;
+      
         $scope.search = function() {
           $location.path('/search/' + $scope.textSearch);
         };
         var init = function() {
+          console.log( 'attempting login' );
           user.getUser({
-            cache: false,
             success: function(data) {
               $scope.href = '';
               $scope.user = data;
               $scope.loggedIn = true;
+              console.log('logged in');
+              $scope.attemptedLogin = true;
               $scope.items = [{
                 text: 'Notifications',
                 href: '#/notifications'
@@ -30,11 +34,13 @@ angular.module('logrunsApp')
             error: function() {
               $scope.items = [];
               $scope.loggedIn = false;
+              console.log('error logging in');
+              $scope.attemptedLogin = true;
             }
           });
         };
-
-        $scope.$on('$routeChangeSuccess', init);
+        init();
+        //$scope.$on('$routeChangeSuccess', init);
       }
     };
   });

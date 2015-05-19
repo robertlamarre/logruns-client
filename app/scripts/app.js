@@ -37,6 +37,10 @@ angular.module('logrunsApp', [
         templateUrl: 'views/entry.html',
         controller: 'EntryCtrl'
       })
+      .when('/entry/:id/edit', {
+        templateUrl: 'views/newentry.html',
+        controller: 'EntryCtrl'
+      })
       .when('/users', {
         templateUrl: 'views/users.html',
         controller: 'UsersCtrl'
@@ -69,4 +73,7 @@ angular.module('logrunsApp', [
         redirectTo: '/'
       });
 
-  });
+  })
+.run(function(user) {
+  user.login();
+});

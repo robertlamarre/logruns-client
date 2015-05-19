@@ -222,6 +222,14 @@ module.exports = function (grunt) {
       }
     },
 
+    ngtemplates:  {
+      logrunsApp:        {
+        cwd: 'app',
+        src:      'views/**/*.html',
+        dest:     'dist/template.js'
+      }
+    },
+
     // Allow the use of non-minsafe AngularJS files. Automatically makes it
     // minsafe compatible so Uglify does not destroy the ng references
     ngmin: {

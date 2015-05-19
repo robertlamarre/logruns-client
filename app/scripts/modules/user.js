@@ -8,7 +8,7 @@ angular.module('logrunsApp')
     };
 
     var noop = function(){};
-    var urlRoot = 'http://mysterious-ravine-3794.herokuapp.com';
+    var urlRoot = 'http://logruns-46880.onmodulus.net' || 'http://mysterious-ravine-3794.herokuapp.com';
 
     var getUrlRoot = function() {
       return urlRoot;
@@ -36,7 +36,7 @@ angular.module('logrunsApp')
     };
 
     var login = function(obj) {
-
+      obj = obj || {};
       var success = obj.success || noop;
       var error = obj.error || noop;
 
@@ -74,7 +74,6 @@ angular.module('logrunsApp')
     };
 
     var getUser = function(obj) {
-
       var success = obj.success || noop;
       var error = obj.error || noop;
       obj.cache = typeof obj.cache === 'undefined' ? true : obj.cache;
@@ -84,6 +83,7 @@ angular.module('logrunsApp')
       }
 
       $http({
+        cache: true,
         method: 'GET',
         url: urlRoot + '/profile',
         withCredentials: true
@@ -243,6 +243,23 @@ angular.module('logrunsApp')
       }).success(success).error(error);
     };
 
+    var updateEntry = function(obj) {
+      var success = obj.success || noop;
+      var error = obj.error || noop;
+
+      $http({
+        method: 'POST',
+        url: urlRoot + '/entry/' + obj.id,
+        data: obj.entry,
+        withCredentials: true
+      }).success(function(data) {
+        success(data);
+      }).error(function(data) {
+        error(data);
+      });
+
+    };
+
     var postEntry = function(obj) {
 
       var success = obj.success || noop;
@@ -308,6 +325,7 @@ angular.module('logrunsApp')
       getEntries: getEntries,
       getEntriesByIds: getEntriesByIds,
       postEntry: postEntry,
+      updateEntry: updateEntry,
       getEntry: getEntry,
       getComments: getComments,
       postComment: postComment,

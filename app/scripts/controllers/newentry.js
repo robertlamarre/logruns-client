@@ -22,7 +22,7 @@ angular.module('logrunsApp')
         success: function(data) {
           console.log(data);
           if ($scope.user) {
-            $location.path('/u/' + $scope.user.local.username);
+            $location.path('/u/' + $scope.user.local.username + '/calendar');
           }
         },
         error: function(data) {

@@ -16,6 +16,7 @@ angular.module('logrunsApp')
         var init = function() {
           console.log( 'attempting login' );
           user.getUser({
+            cache: false,
             success: function(data) {
               $scope.href = '';
               $scope.user = data;
@@ -40,7 +41,7 @@ angular.module('logrunsApp')
           });
         };
         init();
-        //$scope.$on('$routeChangeSuccess', init);
+        $scope.$on('$routeChangeStart', init);
       }
     };
   });

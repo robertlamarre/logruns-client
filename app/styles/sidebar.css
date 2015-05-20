@@ -1,0 +1,55 @@
+sidebar {
+    position: fixed;
+    left: 0px;
+    height: 100%;
+	width: 250px;
+	color: white;
+	background-color: #333f3e;
+	padding: 5px;
+	padding-top: 20px;
+}
+
+sidebar .links {
+	height: 25px;
+}
+
+sidebar .links a {
+	color: white;
+	font-size: 10px;
+	padding: 5px;
+	text-align: center;
+	background-color: #1d1f1f;
+	float: left;
+}
+
+sidebar .links a:not(:first-child) {
+	margin-left: 1px;
+}
+
+sidebar .profileSection {
+	margin-top: 15px;
+	height: 60px;
+}
+
+sidebar .profPic {
+	height: 60px;
+	float: left;
+}
+
+sidebar .quote {
+	margin-top: 15px;
+	font-size: 12px;
+}
+
+sidebar .section {
+	margin-top: 40px;
+}
+
+sidebar .deets {
+	margin-left: 5px;
+}
+
+sidebar .profName {
+	margin-left: 5px;
+	float: left;
+}

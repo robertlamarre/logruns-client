@@ -294,11 +294,57 @@ angular.module('logrunsApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('views/templates/sidebar-template.html',
+    "<div ng-show=\"loggedIn\">\n" +
+    "\n" +
+    "<div class=\"links\">\n" +
+    "  <a href=\"#\">Dashboard</a>\n" +
+    "  <a href=\"#/u/{{user.local.username}}/calendar\"><i class=\"fa fa-calendar\"></i></a>\n" +
+    "  <a href=\"#/notifications\">Notifications</a>\n" +
+    "  <a>Personal Records</a>\n" +
+    "</div>\n" +
+    "\n" +
+    "<div class=\"profileSection\">\n" +
+    "  <img class=\"profPic\" src=\"data:image/png;base64,{{user.picture}}\"/>\n" +
+    "  <div class=\"profName\">\n" +
+    "    <div>{{user.local.username}}</div>\n" +
+    "    <a href=\"#/account\">Edit Profile</a>\n" +
+    "  </div>\n" +
+    "</div>\n" +
+    "\n" +
+    "<div class=\"quote\">\n" +
+    "\tYo son you think I play? I don't play. You see that trout? Fukn fishy bro. Get Rekt, son.\n" +
+    "</div>\n" +
+    "\n" +
+    "<div class=\"section\">\n" +
+    "  STATS\n" +
+    "  <hr>\n" +
+    "  <div class=\"quote deets\">Coming soon dawg</div>\n" +
+    "</div>\n" +
+    "\n" +
+    "<div class=\"section\">\n" +
+    "  GROUPS\n" +
+    "  <hr>\n" +
+    "  <div class=\"quote deets\">Stay tuned</div>\n" +
+    "</div>\n" +
+    "\n" +
+    "<div class=\"section\">\n" +
+    "  LEADERBOARD\n" +
+    "  <hr>\n" +
+    "  <div class=\"quote deets\">In a minute</div>\n" +
+    "</div>\n" +
+    "\n" +
+    "</div>\n" +
+    "\n" +
+    "<div ng-show=\"!loggedIn\">\n" +
+    "\t<a href=\"#/login\">Login!</a>\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('views/templates/toolbar-template.html',
     "<div class=\"toolbar\" ng-show=\"attemptedLogin\">\n" +
     "<a href=\"/\" class=\"toolbarItem bold title\">LogRuns</a>\n" +
-    "<a ng-show=\"loggedIn\" href=\"#/u/{{user.local.username}}/calendar\" class=\"toolbarItem title\">Calendar</a>\n" +
-    "<a href=\"#/users\" class=\"toolbarItem title\">Users</a>\n" +
     "<a href=\"#/login\" ng-show=\"items.length == 0\" class=\"toolbarItem accountInfo\">Login</a>\n" +
     "<div ng-show=\"items.length > 0\" class=\"toolbarItem dropdown accountInfo\">\n" +
     "  <div class=\"dropdown-toggle\">\n" +

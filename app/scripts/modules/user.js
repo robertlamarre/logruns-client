@@ -83,7 +83,6 @@ angular.module('logrunsApp')
       }
 
       $http({
-        cache: true,
         method: 'GET',
         url: urlRoot + '/profile',
         withCredentials: true

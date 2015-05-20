@@ -17,8 +17,9 @@ span.hit {
 }
 
 .container {
-  position: absolute;
-  width: 100%;
+  position: fixed;
+  left: 250px;
+  right: 0px;
   top: 50px;
   bottom: 0px;
   padding: 0px;
@@ -138,7 +139,7 @@ input:focus, textarea:focus {
   width: 100%;
   position: fixed;
   top: 0px;
-  background-color: #222;
+  background-color: #283131;
 }
 
 .toolbarPlaceholder {
@@ -172,12 +173,8 @@ div.toolbarItem a:hover, a.toolbarItem:hover, a.toolbarItem:visited:hover, div.t
   color: white;
 }
 
-.toolbarItem:nth-child(n+1) {
-  border-left: 1px solid white;
-}
-
 .coolGradient {
-  background-color: #000;
+  background-color: #283131;
 }
 
 .toolbar .account {
@@ -567,9 +564,9 @@ a, a:visited {
 
 input.search {
   border-radius: 20px;
-  float: right;
-  margin-right: 20px;
-  width: 15vw;
+  float: left;
+  margin-left: 20px;
+  width: 20vw;
   margin-top: 10px;
   padding-left: 10px;
   height: 30px;

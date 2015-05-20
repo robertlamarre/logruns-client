@@ -22,6 +22,10 @@ sidebar .links a {
 	float: left;
 }
 
+sidebar .links a:hover {
+	background-color: #00b8f1;
+}
+
 sidebar .links a:not(:first-child) {
 	margin-left: 1px;
 }

@@ -14,9 +14,9 @@ sidebar .links {
 }
 
 sidebar .links a {
-	color: white;
+	color: white !important;
 	font-size: 10px;
-	padding: 5px;
+	padding: 4px;
 	text-align: center;
 	background-color: #1d1f1f;
 	float: left;
@@ -24,6 +24,14 @@ sidebar .links a {
 
 sidebar .links a:hover {
 	background-color: #00b8f1;
+}
+
+sidebar .editProf {
+	font-size: 10px;
+}
+
+sidebar a, sidebar a:visited {
+	color: #00b8f1;
 }
 
 sidebar .links a:not(:first-child) {

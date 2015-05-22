@@ -1,0 +1,8 @@
+leaderboard .distance {
+	text-align: right;
+	margin-top: 10px;
+}
+
+leaderboard .name {
+	float: left;
+}

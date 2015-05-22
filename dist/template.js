@@ -294,6 +294,14 @@ angular.module('logrunsApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('views/templates/leaderboard-template.html',
+    "<div ng-repeat=\"leader in leaderboard\">\n" +
+    "  <div class=\"name\"><a href=\"#/u/{{leader._id}}/calendar\">{{leader._id}}</a></div>\n" +
+    "  <div class=\"distance\">{{leader.total.toFixed(1)}}</div>\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('views/templates/sidebar-template.html',
     "<div ng-show=\"loggedIn\">\n" +
     "\n" +
@@ -308,7 +316,7 @@ angular.module('logrunsApp').run(['$templateCache', function($templateCache) {
     "  <img class=\"profPic\" src=\"data:image/png;base64,{{user.picture}}\"/>\n" +
     "  <div class=\"profName\">\n" +
     "    <div>{{user.local.username}}</div>\n" +
-    "    <a href=\"#/account\">Edit Profile</a>\n" +
+    "    <a class=\"editProf\" href=\"#/account\">Edit Profile</a>\n" +
     "  </div>\n" +
     "</div>\n" +
     "\n" +
@@ -331,7 +339,7 @@ angular.module('logrunsApp').run(['$templateCache', function($templateCache) {
     "<div class=\"section\">\n" +
     "  LEADERBOARD\n" +
     "  <hr>\n" +
-    "  <div class=\"quote deets\">In a minute</div>\n" +
+    "  <leaderboard></leaderboard>\n" +
     "</div>\n" +
     "\n" +
     "</div>\n" +

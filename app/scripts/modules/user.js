@@ -134,6 +134,13 @@ angular.module('logrunsApp')
 
     };
 
+    var getLeaderboard = function(obj) {
+      $http({
+        method: 'GET',
+        url: urlRoot + '/leaderboard'
+      }).success(obj.success);
+    };
+
     var setPicture = function(obj) {
       $http({
         method: 'POST',
@@ -230,18 +237,6 @@ angular.module('logrunsApp')
       });
     };
 
-    var postFantasy = function(obj) {
-      var success = obj.success || noop;
-      var error = obj.error || noop;
-
-      $http({
-        method: 'POST',
-        url: urlRoot + '/fantasy',
-        data: obj.fantasy,
-        withCredentials: true
-      }).success(success).error(error);
-    };
-
     var updateEntry = function(obj) {
       var success = obj.success || noop;
       var error = obj.error || noop;
@@ -333,7 +328,7 @@ angular.module('logrunsApp')
       setPicture: setPicture,
       searchEntriesForText: searchEntriesForText,
       getUrlRoot: getUrlRoot,
-      postFantasy: postFantasy
+      getLeaderboard: getLeaderboard
 
     };
 

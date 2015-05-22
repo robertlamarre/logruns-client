@@ -22,6 +22,20 @@ sidebar .links a {
 	float: left;
 }
 
+sidebar #graph .tick {
+	fill: white;
+}
+
+sidebar #graph {
+	margin-top: 15px;
+	margin-bottom: -10px;
+}
+
+sidebar .holder {
+	height: calc(100% - 50px);
+	overflow: auto;
+}
+
 sidebar .links a:hover {
 	background-color: #00b8f1;
 }

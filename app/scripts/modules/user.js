@@ -308,7 +308,6 @@ angular.module('logrunsApp')
     };
 
     return {
-
       signup: signup,
       login: login,
       logout: logout,

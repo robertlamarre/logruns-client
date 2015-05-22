@@ -294,6 +294,11 @@ angular.module('logrunsApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('views/templates/graph-template.html',
+    "<div id=\"graph\"></div>"
+  );
+
+
   $templateCache.put('views/templates/leaderboard-template.html',
     "<div ng-repeat=\"leader in leaderboard\">\n" +
     "  <div class=\"name\"><a href=\"#/u/{{leader._id}}/calendar\">{{leader._id}}</a></div>\n" +
@@ -303,7 +308,7 @@ angular.module('logrunsApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('views/templates/sidebar-template.html',
-    "<div ng-show=\"loggedIn\">\n" +
+    "<div ng-show=\"loggedIn && !minView\" class=\"holder\">\n" +
     "\n" +
     "<div class=\"links\">\n" +
     "  <a href=\"#\">Dashboard</a>\n" +
@@ -327,7 +332,7 @@ angular.module('logrunsApp').run(['$templateCache', function($templateCache) {
     "<div class=\"section\">\n" +
     "  STATS\n" +
     "  <hr>\n" +
-    "  <div class=\"quote deets\">Coming soon dawg</div>\n" +
+    "  <graph></graph>\n" +
     "</div>\n" +
     "\n" +
     "<div class=\"section\">\n" +

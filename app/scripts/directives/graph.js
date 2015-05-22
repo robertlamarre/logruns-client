@@ -5,10 +5,14 @@ angular.module('logrunsApp')
     return {
       restrict: 'E',
       templateUrl: '../../views/templates/graph-template.html',
-      controller: function($rootScope) {
+      controller: function($rootScope, $scope) {
         $rootScope.$watch('user.local', function(newVal, oldVal) {
           if (!$rootScope.user) { return; }
           if (_.isEqual(newVal, oldVal)) { return; }
+          loadGraph();
+        }, true);
+
+        function loadGraph() {
           user.getEntries({
             startDate: moment().subtract('days',7).toISOString(),
             endDate: moment().toISOString(),
@@ -18,7 +22,10 @@ angular.module('logrunsApp')
               makeGraph(data);
             }
           });
-        }, true);
+        }
+
+        $scope.$on('$routeChangeStart', loadGraph);
+
 
         function organizeData(data) {
           console.log(data);
@@ -26,7 +33,7 @@ angular.module('logrunsApp')
           var currDay = moment().startOf('day').subtract('days', 6);
           var pushed = false;
           function pushDate(val) {
-            var mDate = moment(val.date).endOf('day')
+            var mDate = moment(val.date).endOf('day');
             if (currDay.diff(mDate, 'minutes') === 0) {
               newData.push({
                 x: i,
@@ -79,7 +86,7 @@ angular.module('logrunsApp')
           var newTicks = [];
           var dayIndex = moment().day();
           for (var i = dayIndex; i < 7 + dayIndex; ++i) {
-            newTicks.push(ticks[i % 7])
+            newTicks.push(ticks[i % 7]);
           }
 
           var xAxis = d3.svg.axis()
@@ -87,11 +94,11 @@ angular.module('logrunsApp')
             .tickSize(0)
             .tickPadding(6)
             .tickFormat(function(d) {
-              console.log(d);
-              return ticks[(d + dayIndex) % 7]
+              return ticks[(d + dayIndex) % 7];
             })
             .orient('top');
 
+          d3.select('#graph svg').remove();
           var svg = d3.select('#graph').append('svg')
             .attr('width', width + margin.left + margin.right)
             .attr('height', height + margin.top + margin.bottom)
@@ -104,25 +111,18 @@ angular.module('logrunsApp')
             .attr('class', 'layer')
             .style('fill', function(d, i) { return color(i); });
 
-          var rect = layer.selectAll('rect')
+          layer.selectAll('rect')
             .data(function(d) { return d; })
             .enter().append('rect')
             .attr('x', function(d) { return x(d.x); })
-            .attr('y', height)
-            .attr('width', x.rangeBand())
-            .attr('height', 0);
-
-
-
-          rect.transition()
-            .delay(function(d, i) { return i * 10; })
             .attr('y', function(d) { return y(d.y0 + d.y); })
-            .attr('height', function(d) { return y(d.y0) - y(d.y0 + d.y); });
+            .attr('width', x.rangeBand())
+            .attr('height', function(d) { return y(d.y0) - y(d.y0 + d.y);});
 
           svg.append('g')
               .attr('class', 'x axis')
               .attr('transform', 'translate(0,' + height + ')')
-              .call(xAxis)
+              .call(xAxis);
         }
         
       }

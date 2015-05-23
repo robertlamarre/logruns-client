@@ -8,7 +8,7 @@ angular.module('logrunsApp')
     };
 
     var noop = function(){};
-    var urlRoot = 'http://logruns-46880.onmodulus.net' || 'http://mysterious-ravine-3794.herokuapp.com';
+    var urlRoot = 'http://localhost:8080' || 'http://logruns-46880.onmodulus.net' || 'http://mysterious-ravine-3794.herokuapp.com';
 
     var getUrlRoot = function() {
       return urlRoot;
@@ -100,7 +100,7 @@ angular.module('logrunsApp')
       if (!obj.id) {
         this.getUser({
           success: function(usr) {
-            obj.success(urlRoot + '/pictures/' + usr._id);
+            obj.success(usr.pictureUrl);
           },
           error: function() {
             obj.error();
@@ -141,12 +141,12 @@ angular.module('logrunsApp')
       }).success(obj.success);
     };
 
-    var setPicture = function(obj) {
+    var setPictureUrl = function(obj) {
       $http({
         method: 'POST',
         url: urlRoot + '/picture',
         data: {
-          picture: obj.picture
+          url: obj.url
         },
         withCredentials: true
       }).success(function() {
@@ -307,6 +307,17 @@ angular.module('logrunsApp')
       }).success(obj.success);
     };
 
+    var getSignedRequest = function(obj) {
+      $http({
+        method: 'GET',
+        url: urlRoot + '/signs3',
+        params: {
+          filename: obj.filename,
+          filetype: obj.filetype
+        }
+      }).success(obj.success);
+    };
+
     return {
       signup: signup,
       login: login,
@@ -324,11 +335,11 @@ angular.module('logrunsApp')
       postComment: postComment,
       getStats: getStats,
       getStreak: getStreak,
-      setPicture: setPicture,
+      setPictureUrl: setPictureUrl,
       searchEntriesForText: searchEntriesForText,
       getUrlRoot: getUrlRoot,
-      getLeaderboard: getLeaderboard
-
+      getLeaderboard: getLeaderboard,
+      getSignedRequest: getSignedRequest
     };
 
   });

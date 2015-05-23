@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('logrunsApp')
-  .controller('AccountCtrl', function ($scope, $location, user) {
+  .controller('AccountCtrl', function ($scope, $route, user) {
 
     user.getUser({
       success: function(data) {
@@ -10,64 +10,38 @@ angular.module('logrunsApp')
       }
     });
 
-    $scope.preview = function() {
-
-      var file = $scope.inputFile;
-      if (!file) {
-        return;
-      }
-      var img = document.getElementsByTagName('img')[0];
-      var reader = new FileReader();
-      reader.onload = function(e) {img.src = e.target.result;};
-      reader.readAsDataURL(file);
-
-    };
-
+    function uploadFile(file, signedRequest, url){
+      var xhr = new XMLHttpRequest();
+      xhr.open('PUT', signedRequest);
+      xhr.setRequestHeader('x-amz-acl', 'public-read');
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          user.setPictureUrl({
+            url: url,
+            success: function(){
+              $route.reload();
+            }
+          });
+        } else {
+          window.alert('Error uploading picture');
+        }
+      };
+      xhr.send(file);
+    }
     $scope.upload = function() {
 
       var file = $scope.inputFile;
       if (!file) {
         return;
       }
-      var canvas = document.createElement('canvas');
-      var img = document.getElementsByTagName('img')[0];
-      if (!img.src) {
-        return;
-      }
-      var reader = new FileReader();
-      reader.readAsDataURL(file);
-
-      var ctx = canvas.getContext('2d');
-      ctx.drawImage(img, 0, 0);
-
-      var MAX_WIDTH = 40;
-      var MAX_HEIGHT = 40;
-      var width = img.width;
-      var height = img.height;
-      console.log(width, height);
-      if (width > height) {
-        if (width > MAX_WIDTH) {
-          height *= MAX_WIDTH / width;
-          width = MAX_WIDTH;
-        }
-      } else {
-        if (height > MAX_HEIGHT) {
-          width *= MAX_HEIGHT / height;
-          height = MAX_HEIGHT;
-        }
-      }
-      canvas.width = width;
-      canvas.height = height;
-      ctx.drawImage(img, 0, 0, 40, 40);
-
-      var dataurl = canvas.toDataURL('image/png');
-      dataurl = dataurl.replace('data:image/png;base64,', '');
-      user.setPicture({
-        picture: dataurl,
-        success: function(){
-          $location.path('/');
+      user.getSignedRequest({
+        filename: file.name,
+        filetype: file.type,
+        success: function(data) {
+          uploadFile(file, data.signedRequest, data.url);
         }
       });
+      
 
     };
 

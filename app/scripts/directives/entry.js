@@ -8,6 +8,7 @@ angular.module('logrunsApp')
       controller: function($scope, $sce, user) {
 
         $scope.user = $scope.$parent.user;
+        $scope.userMap = {};
 
         $scope.getDate = function(date) {
           return moment(date).zone(0).format('MMM DD, YYYY');
@@ -24,10 +25,12 @@ angular.module('logrunsApp')
           return moment(date).format('MMM DD, YYYY h:mm a');
         };
 
-        var urlRoot = user.getUrlRoot();
-        $scope.getPicUrl = function(username) {
-          return urlRoot + '/pictures/' + username;
-        };
+       
+        user.getUsers({
+          success: function(users) {
+            _.each(users, function(user) { $scope.userMap[user.local.username] = user;});
+          }
+        });
 
         $scope.postComment = function() {
 
